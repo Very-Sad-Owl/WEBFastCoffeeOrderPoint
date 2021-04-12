@@ -1,0 +1,10 @@
+.site-branding {
+    margin-bottom:1em;
+    text-align:center;
+    display: inline-block;
+    float: right;
+}
+
+.site-title a {
+    text-decoration:none;
+}

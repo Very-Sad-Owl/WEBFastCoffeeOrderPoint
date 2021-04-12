@@ -1,0 +1,15 @@
+/* The popup form - hidden by default */
+.edit_ingredient_popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  margin-top: -300px;
+  margin-left: -300px;
+  border: 3px solid #f1f1f1;
+  z-index: 1;
+  overflow: auto;
+  background-color: white;
+}

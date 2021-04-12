@@ -1,0 +1,98 @@
+ {box-sizing: border-box;}
+
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+  cursor: pointer;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  margin-top: -300px;
+  margin-left: -300px;
+  border: 3px solid #f1f1f1;
+  z-index: 1;
+  overflow: auto;
+  background-color: white;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 600px;
+  max-height: 600px;
+  padding: 50px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password], .form-container input[type=checkbox] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: white;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus, .form-container input[type=checkbox]:focus {
+  background-color: white;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+.size_list, .pos_properties {
+  margin-bottom: 30px;
+}
+
+.decor_img{
+  max-height: 40px;
+  width: auto;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+ .decoration_element {
+   display: flex;
+   align-items: center;
+ }
+
+ .size_el{
+   padding-top: 10px;
+   padding-left: 50px;
+   display: inline-block;
+   border: 4px solid black;
+   border-radius: 25px;
+ }
+
+ #pos_properties{
+   display:block;
+   float:left;
+ }
+
+ .selected {
+   background-color: rgba(0, 0, 0, 0.4);
+ }
