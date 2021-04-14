@@ -1,16 +1,12 @@
 package by.epam.training.jwd.godot.dao.util;
 
-import by.epam.training.jwd.godot.bean.IngredientType;
-import by.epam.training.jwd.godot.bean.SeasonType;
-import by.epam.training.jwd.godot.bean.coffee.Coffee;
+import by.epam.training.jwd.godot.bean.coffee.IngredientType;
+import by.epam.training.jwd.godot.bean.coffee.SeasonType;
 import by.epam.training.jwd.godot.bean.coffee.Ingredient;
-import javafx.scene.control.Tab;
 import org.apache.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class IngredientDataConverter {
@@ -40,7 +36,7 @@ public class IngredientDataConverter {
 
         private final String rowTitle;
 
-        private JoinedTableRows(String rowTitle){
+        JoinedTableRows(String rowTitle){
             this.rowTitle = rowTitle;
         }
 
@@ -66,6 +62,7 @@ public class IngredientDataConverter {
         ingredient.setCoast(price);
         ingredient.setSeasonType(SeasonType.valueOf(seasonType.toUpperCase()));
         ingredient.setTitle(title);
+        ingredient.setQuantity(0);
 
         return ingredient;
     }

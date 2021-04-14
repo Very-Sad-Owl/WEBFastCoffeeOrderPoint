@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import static by.epam.training.jwd.godot.controller.command.resource.CommandUrlPath.GOTOERRORPAGE;
+
 public class GoToBuyIngredientsPage implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(GoToBuyIngredientsPage.class);
@@ -34,7 +36,8 @@ public class GoToBuyIngredientsPage implements Command {
             request.setAttribute("all_ingredients", allIngredients);
             request.setAttribute("uid", uid);
         } catch (ServiceException e) {
-            e.printStackTrace(); //TODO: dorime...
+            LOGGER.error(e);
+            response.sendRedirect(GOTOERRORPAGE);
         }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(CommandUrlPath.BUY_INGREDINTS);
         requestDispatcher.forward(request, response);

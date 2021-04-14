@@ -1,7 +1,6 @@
 package by.epam.training.jwd.godot.service.comparator;
 
-import by.epam.training.jwd.godot.bean.Order;
-import by.epam.training.jwd.godot.bean.OrderStatus;
+import by.epam.training.jwd.godot.bean.order_element.Order;
 
 import java.util.Comparator;
 

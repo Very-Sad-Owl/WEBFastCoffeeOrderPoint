@@ -1,9 +1,9 @@
 package by.epam.training.jwd.godot.dao;
 
 
-import by.epam.training.jwd.godot.bean.RegistrationInfo;
-import by.epam.training.jwd.godot.bean.User;
-import by.epam.training.jwd.godot.bean.SignInInfo;
+import by.epam.training.jwd.godot.bean.user.RegistrationInfo;
+import by.epam.training.jwd.godot.bean.user.User;
+import by.epam.training.jwd.godot.bean.user.SignInInfo;
 import by.epam.training.jwd.godot.dao.exception.DAOException;
 
 import java.util.List;

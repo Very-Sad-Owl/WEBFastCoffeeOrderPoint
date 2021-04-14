@@ -1,10 +1,17 @@
 package by.epam.training.jwd.godot.dao.impl;
 
-import by.epam.training.jwd.godot.bean.*;
 import by.epam.training.jwd.godot.bean.coffee.Coffee;
 import by.epam.training.jwd.godot.bean.coffee.CoffeeSize;
 import by.epam.training.jwd.godot.bean.coffee.CoffeeType;
 import by.epam.training.jwd.godot.bean.coffee.Ingredient;
+import by.epam.training.jwd.godot.bean.delivery_point.Address;
+import by.epam.training.jwd.godot.bean.delivery_point.Spot;
+import by.epam.training.jwd.godot.bean.order_element.Order;
+import by.epam.training.jwd.godot.bean.order_element.OrderPotition;
+import by.epam.training.jwd.godot.bean.order_element.OrderStatus;
+import by.epam.training.jwd.godot.bean.order_element.PaymentMethod;
+import by.epam.training.jwd.godot.bean.user.User;
+import by.epam.training.jwd.godot.bean.user.UserRole;
 import by.epam.training.jwd.godot.dao.OrderDao;
 import by.epam.training.jwd.godot.dao.connection.ConnectionPool;
 import by.epam.training.jwd.godot.dao.connection.ConnectionProvider;
@@ -60,7 +67,8 @@ public class OrderDaoImpl implements OrderDao {
             ps = con.prepareStatement(ADD_POSITION, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, position.getType().toString().toLowerCase());
             ps.setInt(2, position.getSize().getVolume());
-            ps.setLong(3, orderId);
+            ps.setString(3, position.getType().toString().toLowerCase());
+            ps.setLong(4, orderId);
 
             int rowAffected = ps.executeUpdate();
             LOGGER.info(ps+"\n");
@@ -99,8 +107,10 @@ public class OrderDaoImpl implements OrderDao {
                     LOGGER.info("pos insertion rollback\n");
                     con.rollback();
                 }
+            } else {
+                con.rollback();
+                throw new DAOException();
             }
-
         } catch (SQLException | ConnectionPoolException e) {
             try {
                 if (con != null) {
@@ -222,6 +232,9 @@ public class OrderDaoImpl implements OrderDao {
                 found.setStatus(status);
                 found.setCoast(rs.getDouble("price"));
                 found.setEstimatedTime(rs.getInt("estimated_time"));
+                if (found.getStatus() != OrderStatus.NEW) {
+                    found.setDate(new Date(rs.getTimestamp("date").getTime()));
+                }
 
                 //for spot
                 Spot spot = null;
@@ -329,7 +342,6 @@ public class OrderDaoImpl implements OrderDao {
         try {
             pool = ConnectionProvider.getConnectionPool();
             con = pool.takeConnection();
-            con.setAutoCommit(false);
 
             ps = con.prepareStatement(GET_ORDER_STATUS);
             ps.setLong(1, uid);
@@ -346,6 +358,67 @@ public class OrderDaoImpl implements OrderDao {
             }
         }
 
+    }
+
+    @Override
+    public Order getOrder(long uid) throws DAOException {
+        PreparedStatement ps = null;
+        ConnectionPool pool = null;
+        Connection con = null;
+        ResultSet rs = null;
+        Order found = new Order();
+        try {
+            pool = ConnectionProvider.getConnectionPool();
+            con = pool.takeConnection();
+            ps = con.prepareStatement(GET_ORDER_BY_UID);
+            ps.setLong(1, uid);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                found.setUid(uid);
+                found.setUser(new User(rs.getString("login"), rs.getString("password"),
+                        rs.getString("email"), rs.getDouble("balance"),
+                        UserRole.valueOf(rs.getString("role_title").toUpperCase())));
+                found.setStatus(OrderStatus.valueOf(rs.getString("status").toUpperCase()));
+                found.setCoast(rs.getDouble("price"));
+                found.setEstimatedTime(rs.getInt("estimated_time"));
+                found.setDate(new Date(rs.getTimestamp("date").getTime()));
+
+                //for spot
+                Spot spot = null;
+                ps = con.prepareStatement(GET_SPOT);
+                ps.setLong(1, rs.getLong("delivery_point_id"));
+                rs = ps.executeQuery();
+                if(rs.next()) {
+                    long spotUid = rs.getLong(ID);
+                    double balance = rs.getDouble(BALANCE);
+                    double rating = rs.getDouble(RATING);
+
+                    String region = rs.getString(CoveredRegionsTable.REGION);
+                    String region_ru = rs.getString(CoveredRegionsTable.REGION_RU);
+                    String city = rs.getString(CoveredCitiesTable.CITY);
+                    String city_ru = rs.getString(CoveredCitiesTable.CITY_RU);
+                    String street = rs.getString(AddressTable.STREET);
+                    String street_ru = rs.getString(AddressTable.STREET_RU);
+                    String house = rs.getString(AddressTable.HOUSE);
+                    Address address = new Address(region, region_ru, city, city_ru, street, street_ru, house);
+
+                    spot = new Spot(spotUid, rating, balance, address);
+                }
+
+                found.setAddress(spot);
+
+                List<OrderPotition> positions = getUserCart(found.getUid());
+
+                found.setPositions(positions);
+            }
+            return found;
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DAOException();
+        } finally {
+            if (pool != null) {
+                pool.closeConnection(con, ps, rs);
+            }
+        }
     }
 
     @Override
@@ -373,6 +446,7 @@ public class OrderDaoImpl implements OrderDao {
                 found.setStatus(OrderStatus.valueOf(rs.getString("status").toUpperCase()));
                 found.setCoast(rs.getDouble("price"));
                 found.setEstimatedTime(rs.getInt("estimated_time"));
+                found.setDate(new Date(rs.getTimestamp("date").getTime()));
 
                 //user
                 String foundLogin = rs.getString(LOGIN_COL);
@@ -433,13 +507,33 @@ public class OrderDaoImpl implements OrderDao {
         try {
             pool = ConnectionProvider.getConnectionPool();
             con = pool.takeConnection();
+            con.setAutoCommit(false);
 
             ps = con.prepareStatement(SET_ORDER_STATUS);
             ps.setString(1, status.toString());
             ps.setLong(2, uid);
             ps.executeUpdate();
+
+            if (status == OrderStatus.COMPLETED){
+                ps = con.prepareStatement(SET_INCOME);
+                ps.setLong(1, uid);
+                ps.executeUpdate();
+            } else if (status == OrderStatus.FORGOTTEN){
+                ps = con.prepareStatement(SET_CONSUMPTION);
+                ps.setLong(1, uid);
+                ps.executeUpdate();
+            }
+            con.commit();
         } catch (SQLException | ConnectionPoolException e) {
-            throw new DAOException("cannot update order status");
+            try {
+                if (con != null) {
+                    con.rollback();
+                    LOGGER.info("pos insertion rollback\n");
+                }
+            } catch (SQLException e1) {
+                throw new DAOException(e);
+            }
+            throw new DAOException(e);
         } finally {
             if (pool != null) {
                 pool.closeConnection(con, ps);

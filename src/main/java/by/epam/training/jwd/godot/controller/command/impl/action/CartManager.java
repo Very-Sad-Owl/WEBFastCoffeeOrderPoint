@@ -1,6 +1,6 @@
 package by.epam.training.jwd.godot.controller.command.impl.action;
 
-import by.epam.training.jwd.godot.bean.PaymentMethod;
+import by.epam.training.jwd.godot.bean.order_element.PaymentMethod;
 import by.epam.training.jwd.godot.controller.command.Command;
 import by.epam.training.jwd.godot.service.OrderService;
 import by.epam.training.jwd.godot.service.ServiceProvider;
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static by.epam.training.jwd.godot.controller.command.resource.RequestParam.*;
+import static by.epam.training.jwd.godot.controller.command.resource.CommandUrlPath.*;
 
 public class CartManager implements Command {
 
@@ -32,6 +33,7 @@ public class CartManager implements Command {
         try {
             service.placeOrder(orderUid, selectedSpot, PaymentMethod.valueOf(selectedPaymet.toUpperCase()),
                     selectedPositions, selectedAmounts, estimatedTime);
+            response.sendRedirect(GOTOCHECKORDERPAGE);
         } catch (ServiceException e) {
             LOGGER.error(e);
         } finally {

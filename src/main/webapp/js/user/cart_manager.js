@@ -6,8 +6,7 @@ function onOrder(f) {
         url : "Controller?command=cartmanager&action=order",
         data: $("#order_form").serialize(),
         success : function(response) {
-            alert(response);
-            showUser();
+            alert(f.get("order"));
         },
         error: function(response){
             alert(response);

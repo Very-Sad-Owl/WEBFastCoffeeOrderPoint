@@ -1,4 +1,4 @@
-package by.epam.training.jwd.godot.bean;
+package by.epam.training.jwd.godot.bean.user;
 
 import java.io.Serializable;
 import java.util.Objects;

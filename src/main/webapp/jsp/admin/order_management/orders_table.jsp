@@ -36,18 +36,15 @@
                 <td>${n.paymentMethod}</td>
                 <td>${n.user.login}</td>
                 <td>${n.estimatedTime}</td>
-
-                <td>${n.estimatedTime}</td>
             <c:if test="${n.status == 'PLACED'}">
                 <th>
                     <div>
                         <button type="button" class="accept_order" onclick="acceptOrder('${n.uid}')">
-                            <%--<fmt:message bundle="${loc}" key="locale.delete.btn"/>--%>
+                            <fmt:message bundle="${loc}" key="locale.accept"/>
                             Accept
                         </button>
                         <button type="button" class="decline_order" onclick="acceptDecline('${n.uid}')">
-                            <%--<fmt:message bundle="${loc}" key="locale.edit.btn"/>--%>
-                            Decline
+                            <fmt:message bundle="${loc}" key="locale.decline"/>
                         </button>
                     </div>
                 </th>
@@ -56,12 +53,10 @@
                 <th>
                     <div>
                         <button type="button" class="accept_order" onclick="setRedy('${n.uid}')">
-                                <%--<fmt:message bundle="${loc}" key="locale.delete.btn"/>--%>
-                            Ready
+                            <fmt:message bundle="${loc}" key="locale.ready"/>
                         </button>
                         <button type="button" class="decline_order" onclick="acceptDecline('${n.uid}')">
-                                <%--<fmt:message bundle="${loc}" key="locale.edit.btn"/>--%>
-                            Decline
+                            <fmt:message bundle="${loc}" key="locale.decline"/>
                         </button>
                     </div>
                 </th>
@@ -70,12 +65,10 @@
                 <th>
                     <div>
                         <button type="button" class="deliver_order" onclick="acceptDelivered('${n.uid}')">
-                                <%--<fmt:message bundle="${loc}" key="locale.delete.btn"/>--%>
-                            Delivered
+                                <fmt:message bundle="${loc}" key="locale.delivered"/>
                         </button>
                         <button type="button" class="archive_order" onclick="acceptForgotten('${n.uid}')">
-                                <%--<fmt:message bundle="${loc}" key="locale.edit.btn"/>--%>
-                            Forgotten
+                                <fmt:message bundle="${loc}" key="locale.forgotten"/>
                         </button>
                     </div>
                 </th>

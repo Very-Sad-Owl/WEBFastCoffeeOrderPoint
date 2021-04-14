@@ -48,7 +48,7 @@
                     </button>
                     <a href="Controller?command=gotobuyingredients&uid=${n.uid}">
                     <button type="button" class="buy_ingr">
-                        <fmt:message bundle="${loc}" key="locale.edit.btn"/>
+                        <fmt:message bundle="${loc}" key="locale.buy.btn"/>
                     </button>
                     </a>
                 </div>

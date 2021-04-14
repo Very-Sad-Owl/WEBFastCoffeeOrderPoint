@@ -1,12 +1,10 @@
 package by.epam.training.jwd.godot.dao.impl;
 
-import by.epam.training.jwd.godot.bean.Spot;
+import by.epam.training.jwd.godot.bean.delivery_point.Spot;
 import by.epam.training.jwd.godot.dao.exception.DAOException;
 import org.junit.Test;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class SpotsDaoImplTest {
     SpotsDaoImpl dao = new SpotsDaoImpl();

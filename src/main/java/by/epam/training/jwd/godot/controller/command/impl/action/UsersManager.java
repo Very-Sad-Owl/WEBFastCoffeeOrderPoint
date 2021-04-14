@@ -30,8 +30,7 @@ public class UsersManager implements Command {
 
         switch (action) {
             case DELETE_ACTION: {
-                LOGGER.info("delete\n");
-                String toDelete = request.getParameter("login");
+                String toDelete = request.getParameter(LOGIN);
                 if (toDelete != null) {
                     try {
                         service.deleteUser(toDelete);
@@ -43,8 +42,7 @@ public class UsersManager implements Command {
                 break;
             }
             case BAN_ACTION: {
-                LOGGER.info("ban\n");
-                String toDelete = request.getParameter("login");
+                String toDelete = request.getParameter(LOGIN);
                 if (toDelete != null) {
                     try {
                         service.banUser(toDelete, true);
@@ -56,8 +54,7 @@ public class UsersManager implements Command {
                 break;
             }
             case UNBAN_ACTION: {
-                LOGGER.info("unban\n");
-                String toDelete = request.getParameter("login");
+                String toDelete = request.getParameter(LOGIN);
                 if (toDelete != null) {
                     try {
                         service.banUser(toDelete, false);

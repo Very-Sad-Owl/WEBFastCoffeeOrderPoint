@@ -1,6 +1,6 @@
 package by.epam.training.jwd.godot.dao;
 
-import by.epam.training.jwd.godot.bean.SeasonType;
+import by.epam.training.jwd.godot.bean.coffee.SeasonType;
 import by.epam.training.jwd.godot.bean.coffee.*;
 import by.epam.training.jwd.godot.dao.exception.DAOException;
 

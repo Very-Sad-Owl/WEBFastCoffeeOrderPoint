@@ -1,7 +1,7 @@
 package by.epam.training.jwd.godot.service.impl;
 
-import by.epam.training.jwd.godot.bean.Address;
-import by.epam.training.jwd.godot.bean.Spot;
+import by.epam.training.jwd.godot.bean.delivery_point.Address;
+import by.epam.training.jwd.godot.bean.delivery_point.Spot;
 import by.epam.training.jwd.godot.bean.coffee.Ingredient;
 import by.epam.training.jwd.godot.dao.DaoProvider;
 import by.epam.training.jwd.godot.dao.SpotsDao;

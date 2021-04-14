@@ -27,9 +27,6 @@
             <fmt:message bundle="${loc}" key="locale.manage.orders"/>
         </a>
     </div>
-    <div class="option" id = "manage_menu">
-        <fmt:message bundle="${loc}" key="locale.manage.menu"/>
-    </div>
     <div class="option" id = "manage_users">
         <a href="Controller?command=gotomanageuserspage">
             <fmt:message bundle="${loc}" key="locale.manage.users"/>

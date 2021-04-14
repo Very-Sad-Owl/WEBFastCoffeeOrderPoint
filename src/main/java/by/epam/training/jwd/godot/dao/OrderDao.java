@@ -1,9 +1,9 @@
 package by.epam.training.jwd.godot.dao;
 
-import by.epam.training.jwd.godot.bean.Order;
-import by.epam.training.jwd.godot.bean.OrderStatus;
-import by.epam.training.jwd.godot.bean.PaymentMethod;
-import by.epam.training.jwd.godot.bean.User;
+import by.epam.training.jwd.godot.bean.order_element.Order;
+import by.epam.training.jwd.godot.bean.order_element.OrderStatus;
+import by.epam.training.jwd.godot.bean.order_element.PaymentMethod;
+import by.epam.training.jwd.godot.bean.user.User;
 import by.epam.training.jwd.godot.bean.coffee.Coffee;
 import by.epam.training.jwd.godot.dao.exception.DAOException;
 
@@ -18,4 +18,5 @@ public interface OrderDao {
     OrderStatus getOrderStatus(long uid) throws DAOException;
     List<Order> getInProcessOrders(long spotUid) throws DAOException;
     void changeOrderStatus(long uid, OrderStatus status) throws DAOException;
+    Order getOrder(long uid) throws DAOException;
 }

@@ -7,6 +7,11 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<fmt:setLocale value = "${sessionScope.locale == null ? 'en' : sessionScope.locale}"/>
+<fmt:setBundle basename="locale" var="loc"/>
+
 <script src="http://code.jquery.com/jquery-2.2.4.js"
         type="text/javascript"></script>
 <script type="text/javascript" src="../../js/scripts.js"></script>
@@ -15,7 +20,7 @@
 
 <html>
 <head>
-    <title>Profile</title>
+    <title><fmt:message bundle="${loc}" key="locale.account"/></title>
 </head>
 <body>
 <%--<form class = editable_img" onsubmit="return uploadFile(this)">--%>
@@ -60,14 +65,10 @@
         <div class="projects">
             <h3>Orders</h3>
             <div class="projects_data">
-                <div class="data">
-                    <h4>Recent</h4>
-                    <p>Lorem ipsum dolor sit amet.</p>
-                </div>
-                <div class="data">
-                    <h4>Most Viewed</h4>
-                    <p>dolor sit amet.</p>
-                </div>
+                <c:forEach var="n" items="${requestScope.orders}" varStatus="loop">
+                    <p>${n.uid}${' - '}${n.date}</p>
+                    <br>
+                </c:forEach>
             </div>
         </div>
 

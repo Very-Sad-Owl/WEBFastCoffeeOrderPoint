@@ -39,10 +39,9 @@ public class IngredientsPurchaseManager implements Command {
 
         switch (action) {
             case ADD_ACTION:
-                selectedIngredientTitle = request.getParameter("ingredient");
-                amount = Integer.parseInt(request.getParameter("amount"));
-                spotUid = Long.parseLong(request.getParameter("spot_uid"));
-                LOGGER.info(selectedIngredientTitle + " " + amount);
+                selectedIngredientTitle = request.getParameter(INGREDIENT);
+                amount = Integer.parseInt(request.getParameter(INGREDIENT_AMOUNT));
+                spotUid = Long.parseLong(request.getParameter(SPOT_UID));
                 try {
                     service.buyIngredient(spotUid, selectedIngredientTitle, amount);
                     Ingredient added = service.getSpotIngredient(selectedIngredientTitle);
@@ -56,9 +55,9 @@ public class IngredientsPurchaseManager implements Command {
                 }
                 break;
             case UPDATE_ACTION:
-                selectedIngredientTitle = request.getParameter("ingredient");
-                amount = Integer.parseInt(request.getParameter("amount"));
-                spotUid = Long.parseLong(request.getParameter("spot_uid"));
+                selectedIngredientTitle = request.getParameter(INGREDIENT);
+                amount = Integer.parseInt(request.getParameter(INGREDIENT_AMOUNT));
+                spotUid = Long.parseLong(request.getParameter(SPOT_UID));
                 try{
                     service.updateIngredientAmount(spotUid, selectedIngredientTitle, amount);
                     response.getWriter().write(msgProvider.getMessage(action));

@@ -1,10 +1,11 @@
 package by.epam.training.jwd.godot.controller.command.impl.action;
 
-import by.epam.training.jwd.godot.bean.User;
+import by.epam.training.jwd.godot.bean.user.User;
 import by.epam.training.jwd.godot.bean.coffee.Coffee;
 import by.epam.training.jwd.godot.bean.coffee.CoffeeSize;
 import by.epam.training.jwd.godot.bean.coffee.Ingredient;
 import by.epam.training.jwd.godot.controller.command.Command;
+import by.epam.training.jwd.godot.controller.command.resource.RequestParam;
 import by.epam.training.jwd.godot.service.CoffeeService;
 import by.epam.training.jwd.godot.service.OrderService;
 import by.epam.training.jwd.godot.service.ServiceProvider;
@@ -17,10 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static by.epam.training.jwd.godot.controller.command.resource.SessionAttr.CURRENT_USER;
+import static by.epam.training.jwd.godot.controller.command.resource.RequestParam.*;
 
 public class OrderPositionCreator implements Command {
 
@@ -41,8 +42,8 @@ public class OrderPositionCreator implements Command {
         switch (action){
             case "choose":
                 try {
-                    int posId = request.getParameter("id") != null
-                            ? Integer.parseInt(request.getParameter("id")) : 0;
+                    int posId = request.getParameter(RequestParam.ID) != null
+                            ? Integer.parseInt(request.getParameter(RequestParam.ID)) : 0;
                     chosen = beverages.get(posId);
                     sizes = coffeeService.getSizes(chosen.getType());
                     decorators = coffeeService.getDecorators();
@@ -57,13 +58,14 @@ public class OrderPositionCreator implements Command {
                     response.getWriter().write(bothJson);
                     break;
                 } catch (ServiceException e) {
-                    e.printStackTrace(); //TODO: 18+контент!!!!
+                    LOGGER.error(e);
+                    response.getWriter().write(e.getMessage());
                 }
             case "add":
                 try {
-                    String[] selectedDecorations = request.getParameterValues("decor");
-                    String[] selectedQuantities = request.getParameterValues("decor_amount");
-                    String selectedSize = request.getParameter("size");
+                    String[] selectedDecorations = request.getParameterValues(DECORATION);
+                    String[] selectedQuantities = request.getParameterValues(DECORATION_AMOUNT);
+                    String selectedSize = request.getParameter(BEVERAGE_SIZE);
 
                     int counter = 0;
                     if(selectedDecorations != null) {
@@ -84,7 +86,7 @@ public class OrderPositionCreator implements Command {
                     break;
                 } catch (ServiceException e) {
                     LOGGER.error(e);
-                    e.printStackTrace(); //TODO: here we go again...
+                    response.getWriter().write(e.getMessage());
                 }
         }
         response.getWriter().flush();

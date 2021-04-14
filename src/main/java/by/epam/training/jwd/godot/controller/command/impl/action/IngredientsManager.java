@@ -1,7 +1,7 @@
 package by.epam.training.jwd.godot.controller.command.impl.action;
 
-import by.epam.training.jwd.godot.bean.IngredientType;
-import by.epam.training.jwd.godot.bean.SeasonType;
+import by.epam.training.jwd.godot.bean.coffee.IngredientType;
+import by.epam.training.jwd.godot.bean.coffee.SeasonType;
 import by.epam.training.jwd.godot.bean.coffee.Ingredient;
 import by.epam.training.jwd.godot.controller.command.Command;
 import by.epam.training.jwd.godot.controller.util.messages_provider.MessageProvider;
@@ -42,7 +42,6 @@ public class IngredientsManager implements Command {
                     response.getWriter().print(msgProvider.getMessage(e.getClass().getSimpleName()));
                 }
             }
-            //response.sendRedirect("Controller?command=gotomanageingredientspage");
         } else if (action.equals(UPDATE_ACTION)){
             String title = request.getParameter(INGREDIENT_TITLE);
             String iType = request.getParameter(INGREDIENT_TYPE);
@@ -66,7 +65,6 @@ public class IngredientsManager implements Command {
             String title = request.getParameter(INGREDIENT_TITLE);
             String iType = request.getParameter(INGREDIENT_TYPE);
             String sType = request.getParameter(INGREDIENT_SEASON);
-            LOGGER.info("price " + request.getParameter(INGREDIENT_PRICE));
             double price = Double.parseDouble(request.getParameter(INGREDIENT_PRICE));
             int quantity = Integer.parseInt(request.getParameter(INGREDIENT_QUANTITY));
             String img = request.getParameter(INGREDIENT_IMG);

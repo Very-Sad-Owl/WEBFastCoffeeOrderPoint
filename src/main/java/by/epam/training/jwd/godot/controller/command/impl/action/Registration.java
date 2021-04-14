@@ -1,6 +1,6 @@
 package by.epam.training.jwd.godot.controller.command.impl.action;
 
-import by.epam.training.jwd.godot.bean.RegistrationInfo;
+import by.epam.training.jwd.godot.bean.user.RegistrationInfo;
 import by.epam.training.jwd.godot.controller.command.Command;
 import by.epam.training.jwd.godot.controller.util.messages_provider.MessageProvider;
 import by.epam.training.jwd.godot.service.exception.*;

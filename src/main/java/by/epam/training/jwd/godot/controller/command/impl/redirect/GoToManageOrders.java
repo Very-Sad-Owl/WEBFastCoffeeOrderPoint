@@ -1,9 +1,5 @@
 package by.epam.training.jwd.godot.controller.command.impl.redirect;
 
-import by.epam.training.jwd.godot.bean.Order;
-import by.epam.training.jwd.godot.bean.OrderStatus;
-import by.epam.training.jwd.godot.bean.PaymentMethod;
-import by.epam.training.jwd.godot.bean.User;
 import by.epam.training.jwd.godot.controller.command.Command;
 import by.epam.training.jwd.godot.controller.command.resource.CommandUrlPath;
 import by.epam.training.jwd.godot.service.OrderService;
@@ -17,8 +13,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
+
+import static by.epam.training.jwd.godot.controller.command.resource.CommandUrlPath.GOTOERRORPAGE;
+import static by.epam.training.jwd.godot.controller.command.resource.RequestParam.*;
 
 public class GoToManageOrders implements Command {
 
@@ -31,22 +28,19 @@ public class GoToManageOrders implements Command {
         SpotsService spotsService = provider.getSpotsService();
 
         long spotUid;
-        if(request.getParameter("uid") != null){
-            spotUid = Long.parseLong(request.getParameter("uid"));
-        } else {
+        if(request.getParameter(UID) == null || request.getParameter(UID).isEmpty()){
             spotUid = -1;
+        } else {
+            spotUid = Long.parseLong(request.getParameter(UID));
         }
 
         try {
-            request.setAttribute("uid", spotUid);
-            request.setAttribute("orders", service.getInProcessOrders(spotUid));
-            request.setAttribute("spots", spotsService.getAll());
-
-            LOGGER.info("got " + service.getInProcessOrders(spotUid) + "\n");
-            LOGGER.info("spotuid  " + spotUid + "\n");
+            request.setAttribute(UID, spotUid);
+            request.setAttribute(ORDER_LIST, service.getInProcessOrders(spotUid));
+            request.setAttribute(AVAILABLE_SPOTS, spotsService.getAll());
         } catch (ServiceException e) {
             LOGGER.error(e.getMessage());
-            e.printStackTrace(); // haha classic
+            response.sendRedirect(GOTOERRORPAGE);
         }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(CommandUrlPath.ORDER_MANAGEMENT);
         requestDispatcher.forward(request, response);

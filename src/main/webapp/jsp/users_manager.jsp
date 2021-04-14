@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel='stylesheet' href='../css/table_style.css' type='text/css' media='all'/>
-<link rel='stylesheet' href='../css/logo_style.css' type='text/css' media='all'/>
+<link rel='stylesheet' href='../css/common/language_switcher_style.css' type='text/css' media='all'/>
 <script type="text/javascript" src="../js/jquery.js"></script>
 <script type="text/javascript" src="../js/scripts.js"></script>
 <script type="text/javascript" src="../js/users_management.js"></script>
@@ -17,7 +17,7 @@
     <title>Manage Users</title>
 </head>
 <body>
-    <jsp:include page="logo.jsp"/>
+    <jsp:include page="common/language_switcher.jsp"/>
     <jsp:include page="users_table.jsp"/>
 </body>
 </html>

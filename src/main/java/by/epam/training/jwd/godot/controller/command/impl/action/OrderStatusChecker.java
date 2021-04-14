@@ -1,19 +1,18 @@
 package by.epam.training.jwd.godot.controller.command.impl.action;
 
-import by.epam.training.jwd.godot.bean.OrderStatus;
-import by.epam.training.jwd.godot.bean.PaymentMethod;
+import by.epam.training.jwd.godot.bean.order_element.Order;
+import by.epam.training.jwd.godot.bean.order_element.OrderStatus;
 import by.epam.training.jwd.godot.controller.command.Command;
 import by.epam.training.jwd.godot.service.OrderService;
 import by.epam.training.jwd.godot.service.ServiceProvider;
 import by.epam.training.jwd.godot.service.exception.ServiceException;
+import com.google.gson.Gson;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-import static by.epam.training.jwd.godot.controller.command.resource.RequestParam.ACTION;
 
 public class OrderStatusChecker implements Command {
 
@@ -27,10 +26,18 @@ public class OrderStatusChecker implements Command {
         long orderUid = Long.parseLong(request.getParameter("order_to_check"));
 
         try {
-            OrderStatus currentStatus = service.getOrderStatus(orderUid);
-            response.getWriter().write(currentStatus.toString());
+            Order found = service.getOrder(orderUid);
+            String sizesJson = new Gson().toJson(found);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(sizesJson);
+            LOGGER.info(sizesJson);
         } catch (ServiceException e) {
+            LOGGER.error(e);
             response.getWriter().write("service error");
+        } finally {
+            response.getWriter().flush();
+            response.getWriter().close();
         }
 
     }

@@ -1,16 +1,13 @@
 package by.epam.training.jwd.godot.dao.impl;
 
-import by.epam.training.jwd.godot.bean.IngredientType;
-import by.epam.training.jwd.godot.bean.SeasonType;
+import by.epam.training.jwd.godot.bean.coffee.SeasonType;
 import by.epam.training.jwd.godot.bean.coffee.*;
 import by.epam.training.jwd.godot.dao.CoffeeDao;
 import by.epam.training.jwd.godot.dao.connection.ConnectionPool;
 import by.epam.training.jwd.godot.dao.connection.ConnectionProvider;
 import by.epam.training.jwd.godot.dao.connection.ecxeption.ConnectionPoolException;
-import by.epam.training.jwd.godot.dao.constant.RecepitsTable;
 import by.epam.training.jwd.godot.dao.exception.DAOException;
 import by.epam.training.jwd.godot.dao.util.IngredientDataConverter;
-import org.apache.commons.math3.util.Precision;
 import org.apache.log4j.Logger;
 
 import java.sql.*;

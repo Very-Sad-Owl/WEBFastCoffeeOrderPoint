@@ -1,4 +1,4 @@
-package by.epam.training.jwd.godot.bean;
+package by.epam.training.jwd.godot.bean.user;
 
 public enum UserRole {
     GUEST(1), USER(2), ADMIN(3), BANNED(4);

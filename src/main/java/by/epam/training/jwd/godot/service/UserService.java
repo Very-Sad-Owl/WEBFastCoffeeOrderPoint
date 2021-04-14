@@ -1,8 +1,8 @@
 package by.epam.training.jwd.godot.service;
 
-import by.epam.training.jwd.godot.bean.RegistrationInfo;
-import by.epam.training.jwd.godot.bean.User;
-import by.epam.training.jwd.godot.bean.SignInInfo;
+import by.epam.training.jwd.godot.bean.user.RegistrationInfo;
+import by.epam.training.jwd.godot.bean.user.User;
+import by.epam.training.jwd.godot.bean.user.SignInInfo;
 import by.epam.training.jwd.godot.service.exception.ServiceException;
 
 import java.util.List;

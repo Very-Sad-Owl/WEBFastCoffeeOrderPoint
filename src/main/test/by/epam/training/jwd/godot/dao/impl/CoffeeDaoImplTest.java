@@ -1,7 +1,7 @@
 package by.epam.training.jwd.godot.dao.impl;
 
-import by.epam.training.jwd.godot.bean.IngredientType;
-import by.epam.training.jwd.godot.bean.SeasonType;
+import by.epam.training.jwd.godot.bean.coffee.IngredientType;
+import by.epam.training.jwd.godot.bean.coffee.SeasonType;
 import by.epam.training.jwd.godot.bean.coffee.Coffee;
 import by.epam.training.jwd.godot.bean.coffee.CoffeeSize;
 import by.epam.training.jwd.godot.bean.coffee.CoffeeType;

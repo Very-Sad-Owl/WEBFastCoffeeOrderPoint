@@ -1,8 +1,5 @@
 package by.epam.training.jwd.godot.bean.coffee;
 
-import by.epam.training.jwd.godot.bean.IngredientType;
-import by.epam.training.jwd.godot.bean.SeasonType;
-
 import java.io.Serializable;
 import java.util.Objects;
 

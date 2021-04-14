@@ -1,10 +1,13 @@
-package by.epam.training.jwd.godot.bean;
+package by.epam.training.jwd.godot.bean.order_element;
 
-import by.epam.training.jwd.godot.bean.coffee.Coffee;
+import by.epam.training.jwd.godot.bean.delivery_point.Spot;
+import by.epam.training.jwd.godot.bean.user.User;
 import by.epam.training.jwd.godot.bean.coffee.Ingredient;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,10 +22,11 @@ public class Order implements Serializable {
     private Spot address;
     private double coast = 0;
     private int estimatedTime;
+    private Date date;
 
     public Order(){}
 
-    public Order(long uid, User user, OrderStatus status, PaymentMethod paymentMethod, List<OrderPotition> positions, Spot address, double coast, int estimatedTime) {
+    public Order(long uid, User user, OrderStatus status, PaymentMethod paymentMethod, List<OrderPotition> positions, Spot address, double coast, int estimatedTime, Date date) {
         this.uid = uid;
         this.user = user;
         this.status = status;
@@ -31,6 +35,7 @@ public class Order implements Serializable {
         this.address = address;
         this.coast = coast;
         this.estimatedTime = estimatedTime;
+        this.date = date;
     }
 
     public Order(User user, OrderStatus status) {
@@ -121,6 +126,14 @@ public class Order implements Serializable {
         this.estimatedTime = estimatedTime;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -133,12 +146,13 @@ public class Order implements Serializable {
                 getStatus() == order.getStatus() &&
                 getPaymentMethod() == order.getPaymentMethod() &&
                 Objects.equals(getPositions(), order.getPositions()) &&
-                Objects.equals(getAddress(), order.getAddress());
+                Objects.equals(getAddress(), order.getAddress()) &&
+                Objects.equals(getDate(), order.getDate());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUid(), getUser(), getStatus(), getPaymentMethod(), getPositions(), getAddress(), getCoast(), getEstimatedTime());
+        return Objects.hash(getUid(), getUser(), getStatus(), getPaymentMethod(), getPositions(), getAddress(), getCoast(), getEstimatedTime(), getDate());
     }
 
     @Override
@@ -152,6 +166,7 @@ public class Order implements Serializable {
                 ", address=" + address +
                 ", coast=" + coast +
                 ", estimatedTime=" + estimatedTime +
+                ", date=" + date +
                 '}';
     }
 }

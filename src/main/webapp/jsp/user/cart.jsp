@@ -11,12 +11,14 @@
 <script type="text/javascript" src="../../js/scripts.js"></script>
 <script src="../../js/order_popup.js"></script>
 <link rel='stylesheet' href='../../css/logo_style.css' type='text/css' media='all'/>
+<link rel='stylesheet' href='../../css/common/language_switcher_style.css' type='text/css' media='all'/>
 <script type="text/javascript" src="../../js/user/cart_manager.js"></script>
 <html>
 <head>
     <title>Cart</title>
 </head>
 <body>
+<jsp:include page="../common/language_switcher.jsp"/>
 <jsp:include page="cart_table.jsp"/>
 </body>
 </html>

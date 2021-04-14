@@ -1,10 +1,6 @@
-package by.epam.training.jwd.godot.bean;
-
-import by.epam.training.jwd.godot.bean.coffee.Coffee;
+package by.epam.training.jwd.godot.bean.delivery_point;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Address implements Serializable {

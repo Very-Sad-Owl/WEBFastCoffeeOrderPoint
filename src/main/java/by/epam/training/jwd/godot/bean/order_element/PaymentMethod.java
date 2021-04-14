@@ -1,4 +1,4 @@
-package by.epam.training.jwd.godot.bean;
+package by.epam.training.jwd.godot.bean.order_element;
 
 public enum PaymentMethod {
     CASH("cash"), CARD("card");

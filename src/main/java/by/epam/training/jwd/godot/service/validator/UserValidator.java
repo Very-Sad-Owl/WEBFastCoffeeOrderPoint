@@ -1,6 +1,6 @@
 package by.epam.training.jwd.godot.service.validator;
 
-import by.epam.training.jwd.godot.bean.RegistrationInfo;
+import by.epam.training.jwd.godot.bean.user.RegistrationInfo;
 import by.epam.training.jwd.godot.service.exception.InvalidEmailException;
 import by.epam.training.jwd.godot.service.exception.InvalidLoginException;
 import by.epam.training.jwd.godot.service.exception.InvalidPasswordException;

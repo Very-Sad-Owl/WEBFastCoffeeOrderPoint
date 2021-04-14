@@ -25,7 +25,6 @@ public class LanguageSwitcher implements Command {
         if(session != null) {
             session.setAttribute(LOCALE, chosenLang);
         }
-        LOGGER.info("prev " + request.getSession().getAttribute("previousUrl") + "\n");
-        response.sendRedirect((String) request.getSession().getAttribute("previousUrl"));
+        response.sendRedirect((String) request.getSession().getAttribute(PREVIOUS_URL));
     }
 }

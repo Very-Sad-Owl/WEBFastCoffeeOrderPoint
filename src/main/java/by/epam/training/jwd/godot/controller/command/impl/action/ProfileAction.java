@@ -1,19 +1,17 @@
 package by.epam.training.jwd.godot.controller.command.impl.action;
 
-import by.epam.training.jwd.godot.bean.User;
+import by.epam.training.jwd.godot.bean.user.User;
 import by.epam.training.jwd.godot.controller.command.Command;
 import by.epam.training.jwd.godot.controller.util.messages_provider.MessageProvider;
 import by.epam.training.jwd.godot.service.ServiceProvider;
 import by.epam.training.jwd.godot.service.UserService;
 import by.epam.training.jwd.godot.service.exception.ServiceException;
 import by.epam.training.jwd.godot.service.util.ImageSaver;
-import com.sun.xml.internal.bind.v2.TODO;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import java.io.IOException;
 import java.util.Locale;
 

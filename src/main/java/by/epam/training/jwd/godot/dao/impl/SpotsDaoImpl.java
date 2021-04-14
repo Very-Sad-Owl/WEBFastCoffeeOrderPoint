@@ -1,9 +1,9 @@
 package by.epam.training.jwd.godot.dao.impl;
 
-import by.epam.training.jwd.godot.bean.Address;
-import by.epam.training.jwd.godot.bean.IngredientType;
-import by.epam.training.jwd.godot.bean.SeasonType;
-import by.epam.training.jwd.godot.bean.Spot;
+import by.epam.training.jwd.godot.bean.delivery_point.Address;
+import by.epam.training.jwd.godot.bean.coffee.IngredientType;
+import by.epam.training.jwd.godot.bean.coffee.SeasonType;
+import by.epam.training.jwd.godot.bean.delivery_point.Spot;
 import by.epam.training.jwd.godot.bean.coffee.Ingredient;
 import by.epam.training.jwd.godot.dao.SpotsDao;
 import by.epam.training.jwd.godot.dao.connection.ConnectionPool;

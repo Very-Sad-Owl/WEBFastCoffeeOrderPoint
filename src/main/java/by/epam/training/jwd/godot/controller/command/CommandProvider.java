@@ -11,6 +11,7 @@ public class CommandProvider {
 	
 	public CommandProvider() {
 		commands.put(CommandName.LOGINATION, new SigningIn());
+		commands.put(CommandName.GOTOERRORPAGE, new GoToErrorPage());
 		commands.put(CommandName.GOTOLOGINATIONPAGE, new GoToLoginationPage());
 		commands.put(CommandName.GOTOREGISTRATIONPAGE, new GoToRegistrationPage());
 		commands.put(CommandName.REGISTRATION, new Registration());

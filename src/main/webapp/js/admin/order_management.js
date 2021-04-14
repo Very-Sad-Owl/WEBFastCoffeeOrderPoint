@@ -54,7 +54,6 @@ function acceptForgotten(uid) {
         type : "POST",
         url : 'Controller?command=manageorders&action=forgotten&uid='+uid,
         success : function(response) {
-            location.reload();
         },
         error: function(response){
             alert('request failed');
@@ -66,7 +65,7 @@ function changeSpot(selected) {
     console.log("changespot 1");
     $.ajax({
         type : "GET",
-        url : 'Controller?command=gotomanageorders&uid='+selected.value,
+        url : 'Controller?command=manageorders&action=changespot&uid='+selected.value,
         success : function(response) {
             console.log("changespot 2");
             location.reload();

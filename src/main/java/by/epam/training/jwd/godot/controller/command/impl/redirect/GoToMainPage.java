@@ -17,9 +17,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class GoToMainPage implements Command {
+import static by.epam.training.jwd.godot.controller.command.resource.CommandUrlPath.GOTOERRORPAGE;
 
-	private Coffee chosen = null;
+public class GoToMainPage implements Command {
 
 	private static final Logger LOGGER = Logger.getLogger(GoToMainPage.class);
 
@@ -33,7 +33,8 @@ public class GoToMainPage implements Command {
 			request.getSession().setAttribute("coffee", allCoffee);
 			LOGGER.info("retrieved: " + allCoffee.size() + "\n");
 		} catch (ServiceException e) {
-			e.printStackTrace();
+			LOGGER.error(e);
+			response.sendRedirect(GOTOERRORPAGE);
 		}
 
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(CommandUrlPath.MAINPAGE);

@@ -8,18 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import by.epam.training.jwd.godot.bean.SignInInfo;
-import by.epam.training.jwd.godot.bean.User;
-import by.epam.training.jwd.godot.bean.UserRole;
+import by.epam.training.jwd.godot.bean.user.SignInInfo;
+import by.epam.training.jwd.godot.bean.user.User;
+import by.epam.training.jwd.godot.bean.user.UserRole;
 import by.epam.training.jwd.godot.controller.command.Command;
 import by.epam.training.jwd.godot.controller.util.messages_provider.MessageProvider;
-import by.epam.training.jwd.godot.service.exception.NoSuchUserException;
 import by.epam.training.jwd.godot.service.exception.ServiceException;
 import by.epam.training.jwd.godot.service.ServiceProvider;
 import by.epam.training.jwd.godot.service.UserService;
 
 import static by.epam.training.jwd.godot.controller.command.resource.CommandUrlPath.*;
-import static by.epam.training.jwd.godot.controller.command.resource.CommandParam.*;
 import static by.epam.training.jwd.godot.controller.command.resource.RequestParam.*;
 import static by.epam.training.jwd.godot.controller.command.resource.SessionAttr.*;
 

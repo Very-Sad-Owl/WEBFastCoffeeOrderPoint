@@ -21,39 +21,27 @@
         <a class="skip-link screen-reader-text" href="#content">Skip to content</a>
         <div class="menu-menu-1-container">
             <ul id="menu-menu-1" class="menu">
-                <c:if test="${requestScope.user != null}">
+                <c:if test="${sessionScope.auth == true}">
                     <li><a href="coming soon .."><fmt:message bundle="${loc}" key="locale.about"/></a></li>
                     <li><a href="Controller?command=gotoindexpage"><fmt:message bundle="${loc}" key="locale.order"/></a></li>
                     <li><a href="Controller?command=gotocheckorder"><fmt:message bundle="${loc}" key="locale.check.order"/></a></li>
                     <li><a href="#"><fmt:message bundle="${loc}" key="locale.account"/></a>
                         <ul class="sub-menu">
-                            <c:if test="${sessionScope.auth == true}">
-                                <li><a href="Controller?command=logout"><fmt:message bundle="${loc}" key="locale.logout"/></a></li>
-                                <li><a href="Controller?command=gotoprofilepage"><fmt:message bundle="${loc}" key="locale.account"/></a></li>
-                            </c:if>
-                            <c:if test="${sessionScope.auth == false || sessionScope.auth == null}">
-                                <li><a href="Controller?command=gotologinationpage"><fmt:message bundle="${loc}" key="locale.login"/></a></li>
-                                <li><a href="Controller?command=gotoregistrationpage"><fmt:message bundle="${loc}" key="locale.register"/></a></li>
-                            </c:if>
+                            <li><a href="Controller?command=logout"><fmt:message bundle="${loc}" key="locale.logout"/></a></li>
+                            <li><a href="Controller?command=gotoprofilepage"><fmt:message bundle="${loc}" key="locale.account"/></a></li>
                         </ul>
                     </li>
                     <li class = "cart">
                         <a href="Controller?command=gotocart"><fmt:message bundle="${loc}" key="locale.cart"/></a>
                     </li>
                 </c:if>
-                <c:if test="${requestScope.user == null}">
+                <c:if test="${sessionScope.auth == false || sessionScope.auth == null}">
                     <li><a href="coming soon .."><fmt:message bundle="${loc}" key="locale.about"/></a></li>
                     <li><a href="Controller?command=gotoindexpage"><fmt:message bundle="${loc}" key="locale.menu"/></a></li>
                     <li><a href="#"><fmt:message bundle="${loc}" key="locale.account"/></a>
                         <ul class="sub-menu">
-                            <c:if test="${sessionScope.auth == true}">
-                                <li><a href="Controller?command=logout"><fmt:message bundle="${loc}" key="locale.logout"/></a></li>
-                                <li><a href="Controller?command=gotoprofilepage"><fmt:message bundle="${loc}" key="locale.account"/></a></li>
-                            </c:if>
-                            <c:if test="${sessionScope.auth == false || sessionScope.auth == null}">
-                                <li><a href="Controller?command=gotologinationpage"><fmt:message bundle="${loc}" key="locale.login"/></a></li>
-                                <li><a href="Controller?command=gotoregistrationpage"><fmt:message bundle="${loc}" key="locale.register"/></a></li>
-                            </c:if>
+                            <li><a href="Controller?command=gotologinationpage"><fmt:message bundle="${loc}" key="locale.login"/></a></li>
+                            <li><a href="Controller?command=gotoregistrationpage"><fmt:message bundle="${loc}" key="locale.register"/></a></li>
                         </ul>
                     </li>
                 </c:if>

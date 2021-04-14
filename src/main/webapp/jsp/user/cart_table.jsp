@@ -14,19 +14,28 @@
 <fmt:setBundle basename="locale" var="loc"/>
 
 <form class = "order_form" id = "order_form" onsubmit="return onOrder(this)">
-    <select id="spots" name="spots">
+    <label for="spots"></label><fmt:message bundle="${loc}" key="locale.delivery.point"/><select id="spots" name="spots">
         <c:forEach var="n" items="${requestScope.spots}" varStatus="loop">
-            <option value="${n.uid}">${n.address}</option>
+            <option value="${n.uid}">
+                <c:if test="${sessionScope.locale == 'en' || sessionScope.locale == null}">
+                    ${n.address.region}${', '}${n.address.city}${', '}${n.address.street}
+                    ${', '}${n.address.city}${', '}${n.address.house}
+                </c:if>
+                <c:if test="${sessionScope.locale == 'ru'}">
+                    ${n.address.regionRu}${', '}${n.address.cityRu}${', '}${n.address.streetRu}
+                    ${', '}${n.address.cityRu}${', '}${n.address.house}
+                </c:if>
+            </option>
         </c:forEach>
     </select>
 
-    <select id="payment_methods" name="payment_methods">
+    <label for="payment_methods"><fmt:message bundle="${loc}" key="locale.payment.method"/></label><select id="payment_methods" name="payment_methods">
         <c:forEach var="n" items="${requestScope.payment_methods}" varStatus="loop">
             <option value="${n}">${n}</option>
         </c:forEach>
     </select>
 
-    <input name="estimated_time" id = "estimated_time" type="number" value="${requestScope.cart.estimatedTime}">
+    <label for="estimated_time"><fmt:message bundle="${loc}" key="locale.estimated.time"/></label><input name="estimated_time" id = "estimated_time" type="number" value="${requestScope.cart.estimatedTime}">
 
     <input type="hidden" name="order" value="${requestScope.cart.uid}">
     <table class="styled-table">
@@ -51,7 +60,9 @@
                     <input name="amount" type="number" step="1" min="1" max="10">
                 </td>
                 <td>
-                   ${n.getDesctiption()}
+                    <c:forEach var="n" items="${n.beverage.decorations}" varStatus="loop">
+                        ${n.title}${' x'}${n.quantity}${' '}
+                    </c:forEach>
                 </td>
                 <th>
                     <div>
@@ -63,7 +74,7 @@
         </tbody>
     </table>
     <button type="submit" id = "make_order" class="btn ok">
-        Order
+        <fmt:message bundle="${loc}" key="locale.order"/>
     </button>
 </form>
 

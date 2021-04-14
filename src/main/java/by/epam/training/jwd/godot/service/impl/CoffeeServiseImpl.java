@@ -1,6 +1,6 @@
 package by.epam.training.jwd.godot.service.impl;
 
-import by.epam.training.jwd.godot.bean.SeasonType;
+import by.epam.training.jwd.godot.bean.coffee.SeasonType;
 import by.epam.training.jwd.godot.bean.coffee.*;
 import by.epam.training.jwd.godot.dao.CoffeeDao;
 import by.epam.training.jwd.godot.dao.DaoProvider;

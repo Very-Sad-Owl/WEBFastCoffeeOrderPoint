@@ -3,6 +3,7 @@ package by.epam.training.jwd.godot.controller.command.resource;
 public interface CommandUrlPath {
 
     String MAINPAGE = "jsp/main_page.jsp";
+    String ERROR_PAGE = "error.jsp";
     String LOGINATIONPAGE = "jsp/logination.jsp";
     String REGISTRATIONPAGE = "jsp/registration.jsp";
     String ADMIN_PAGE = "jsp/admin_page.jsp";
@@ -22,4 +23,6 @@ public interface CommandUrlPath {
     String GOTOREGISTRATIONPAGE_WITH_MSG = "Controller?command=gotoregistrationpage&message=%s";
     String GOTOADMINPAGE = "Controller?command=gotoadminpage";
     String GOTOBUYINGREDIENTSPAGE = "Controller?command=gotobuyingredients&message=%s";
+    String GOTOERRORPAGE = "Controller?command=gotoerrorpage";
+    String GOTOCHECKORDERPAGE = "Controller?command=gotocheckorder";
 }

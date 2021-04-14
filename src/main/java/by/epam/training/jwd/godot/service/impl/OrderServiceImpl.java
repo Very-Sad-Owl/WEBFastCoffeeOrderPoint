@@ -1,9 +1,9 @@
 package by.epam.training.jwd.godot.service.impl;
 
-import by.epam.training.jwd.godot.bean.Order;
-import by.epam.training.jwd.godot.bean.OrderStatus;
-import by.epam.training.jwd.godot.bean.PaymentMethod;
-import by.epam.training.jwd.godot.bean.User;
+import by.epam.training.jwd.godot.bean.order_element.Order;
+import by.epam.training.jwd.godot.bean.order_element.OrderStatus;
+import by.epam.training.jwd.godot.bean.order_element.PaymentMethod;
+import by.epam.training.jwd.godot.bean.user.User;
 import by.epam.training.jwd.godot.bean.coffee.Coffee;
 import by.epam.training.jwd.godot.dao.DaoProvider;
 import by.epam.training.jwd.godot.dao.OrderDao;
@@ -96,6 +96,18 @@ public class OrderServiceImpl implements OrderService {
             dao.changeOrderStatus(uid, status);
         } catch (DAOException e) {
             throw new ServiceException("cannot change order status");
+        }
+    }
+
+    @Override
+    public Order getOrder(long uid) throws ServiceException {
+        DaoProvider provider = DaoProvider.getInstance();
+        OrderDao dao = provider.getOrderDao();
+
+        try {
+            return dao.getOrder(uid);
+        } catch (DAOException e) {
+            throw new ServiceException("cannot retrieve order data");
         }
     }
 }
