@@ -38,7 +38,7 @@ public class OrderPositionCreator implements Command {
         OrderService orderService = provider.getOrderService();
         beverages = (ArrayList<Coffee>)request.getSession().getAttribute("coffee");
 
-        String action = request.getParameter("action");
+        String action = request.getParameter(ACTION);
         switch (action){
             case "choose":
                 try {
@@ -61,7 +61,7 @@ public class OrderPositionCreator implements Command {
                     LOGGER.error(e);
                     response.getWriter().write(e.getMessage());
                 }
-            case "add":
+            case ADD_ACTION:
                 try {
                     String[] selectedDecorations = request.getParameterValues(DECORATION);
                     String[] selectedQuantities = request.getParameterValues(DECORATION_AMOUNT);

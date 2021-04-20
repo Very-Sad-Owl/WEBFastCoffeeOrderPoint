@@ -21,6 +21,8 @@ import by.epam.training.jwd.godot.dao.constant.CoveredCitiesTable;
 import by.epam.training.jwd.godot.dao.constant.CoveredRegionsTable;
 import by.epam.training.jwd.godot.dao.exception.DAOException;
 import by.epam.training.jwd.godot.dao.util.IngredientDataConverter;
+import by.epam.training.jwd.godot.dao.util.SpotDataConverter;
+import by.epam.training.jwd.godot.dao.util.UserDataConverter;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -242,20 +244,21 @@ public class OrderDaoImpl implements OrderDao {
                 ps.setLong(1, rs.getLong("delivery_point_id"));
                 rs = ps.executeQuery();
                 if(rs.next()) {
-                    long uid = rs.getLong(ID);
-                    double balance = rs.getDouble(BALANCE);
-                    double rating = rs.getDouble(RATING);
-
-                    String region = rs.getString(CoveredRegionsTable.REGION);
-                    String region_ru = rs.getString(CoveredRegionsTable.REGION_RU);
-                    String city = rs.getString(CoveredCitiesTable.CITY);
-                    String city_ru = rs.getString(CoveredCitiesTable.CITY_RU);
-                    String street = rs.getString(AddressTable.STREET);
-                    String street_ru = rs.getString(AddressTable.STREET_RU);
-                    String house = rs.getString(AddressTable.HOUSE);
-                    Address address = new Address(region, region_ru, city, city_ru, street, street_ru, house);
-
-                    spot = new Spot(uid, rating, balance, address);
+//                    long uid = rs.getLong(ID);
+//                    double balance = rs.getDouble(BALANCE);
+//                    double rating = rs.getDouble(RATING);
+//
+//                    String region = rs.getString(CoveredRegionsTable.REGION);
+//                    String region_ru = rs.getString(CoveredRegionsTable.REGION_RU);
+//                    String city = rs.getString(CoveredCitiesTable.CITY);
+//                    String city_ru = rs.getString(CoveredCitiesTable.CITY_RU);
+//                    String street = rs.getString(AddressTable.STREET);
+//                    String street_ru = rs.getString(AddressTable.STREET_RU);
+//                    String house = rs.getString(AddressTable.HOUSE);
+//                    Address address = new Address(region, region_ru, city, city_ru, street, street_ru, house);
+//
+//                    spot = new Spot(uid, rating, balance, address);
+                    spot = new SpotDataConverter().resultSetToSpot(rs);
                 }
 
                 found.setAddress(spot);
@@ -307,11 +310,6 @@ public class OrderDaoImpl implements OrderDao {
             ps.setString(4, paymentMethod.toString());
             ps.setString(5, OrderStatus.PLACED.toString());
             ps.executeUpdate();
-
-//            ps = con.prepareStatement(UPDATE_ORDER_COAST);
-//            ps.setLong(1, orderUid);
-//            ps.setLong(2, orderUid);
-//            ps.executeUpdate();
 
             con.commit();
         } catch (SQLException | ConnectionPoolException e) {
@@ -374,10 +372,9 @@ public class OrderDaoImpl implements OrderDao {
             ps.setLong(1, uid);
             rs = ps.executeQuery();
             if (rs.next()) {
+                User user = new UserDataConverter().resultSetToUser(rs);
                 found.setUid(uid);
-                found.setUser(new User(rs.getString("login"), rs.getString("password"),
-                        rs.getString("email"), rs.getDouble("balance"),
-                        UserRole.valueOf(rs.getString("role_title").toUpperCase())));
+                found.setUser(user);
                 found.setStatus(OrderStatus.valueOf(rs.getString("status").toUpperCase()));
                 found.setCoast(rs.getDouble("price"));
                 found.setEstimatedTime(rs.getInt("estimated_time"));

@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix = "addr" uri = "/WEB-INF/addressLineTag.tld"%>
 <link rel='stylesheet' href='../../css/table_style.css' type='text/css' media='all'/>
 <%--<script type="text/javascript" src="../js/users_management.js"></script>--%>
 <fmt:setLocale value = "${sessionScope.locale == null ? 'en' : sessionScope.locale}"/>
@@ -18,12 +19,10 @@
         <c:forEach var="n" items="${requestScope.spots}" varStatus="loop">
             <option value="${n.uid}">
                 <c:if test="${sessionScope.locale == 'en' || sessionScope.locale == null}">
-                    ${n.address.region}${', '}${n.address.city}${', '}${n.address.street}
-                    ${', '}${n.address.city}${', '}${n.address.house}
+                    <addr:address message = "${n}" locale="en"/>
                 </c:if>
                 <c:if test="${sessionScope.locale == 'ru'}">
-                    ${n.address.regionRu}${', '}${n.address.cityRu}${', '}${n.address.streetRu}
-                    ${', '}${n.address.cityRu}${', '}${n.address.house}
+                    <addr:address message = "${n}" locale="ru"/>
                 </c:if>
             </option>
         </c:forEach>

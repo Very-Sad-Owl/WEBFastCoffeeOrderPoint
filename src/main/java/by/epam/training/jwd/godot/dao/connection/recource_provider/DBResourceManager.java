@@ -6,7 +6,9 @@ public class DBResourceManager {
 
     private ResourceBundle bundle =
             ResourceBundle.getBundle("db");
-    //TODO: add test db and its .resource
+
+    private ResourceBundle testBundle =
+            ResourceBundle.getBundle("testdb");
 
     public static DBResourceManager getInstance() {
         return instance;
@@ -15,4 +17,7 @@ public class DBResourceManager {
     public String getValue(String key){
         return bundle.getString(key);
     }
+//    public String getValue(String key){
+//    return testBundle.getString(key);
+//}
 }

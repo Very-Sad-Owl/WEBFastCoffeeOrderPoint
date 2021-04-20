@@ -9,7 +9,10 @@ import by.epam.training.jwd.godot.dao.DaoProvider;
 import by.epam.training.jwd.godot.dao.OrderDao;
 import by.epam.training.jwd.godot.dao.exception.DAOException;
 import by.epam.training.jwd.godot.service.OrderService;
+import by.epam.training.jwd.godot.service.exception.InsertionException;
+import by.epam.training.jwd.godot.service.exception.RetrievingException;
 import by.epam.training.jwd.godot.service.exception.ServiceException;
+import by.epam.training.jwd.godot.service.exception.UpdateException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +27,7 @@ public class OrderServiceImpl implements OrderService {
         try {
             dao.addOrderPosition(position, user);
         } catch (DAOException e) {
-            throw new ServiceException("Order position insertion has failed");
+            throw new InsertionException("Order position insertion has failed");
         }
     }
 
@@ -36,7 +39,7 @@ public class OrderServiceImpl implements OrderService {
         try {
             return dao.getOrder(user, OrderStatus.NEW);
         } catch (DAOException e) {
-            throw new ServiceException("Cannot retrieve cart data");
+            throw new RetrievingException("Cannot retrieve cart data");
         }
     }
 
@@ -59,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
         try {
             dao.placeOrder(positions, orderUid, spotUid, paymentMethod, estimatedTime);
         } catch (DAOException e) {
-            throw new ServiceException("cannot place order");
+            throw new InsertionException("cannot place order");
         }
     }
 
@@ -71,7 +74,7 @@ public class OrderServiceImpl implements OrderService {
         try {
             return dao.getOrderStatus(orderUid);
         } catch (DAOException e) {
-            throw new ServiceException("cannot retrieve order data");
+            throw new RetrievingException("cannot retrieve order data");
         }
     }
 
@@ -83,7 +86,7 @@ public class OrderServiceImpl implements OrderService {
         try {
             return dao.getInProcessOrders(spotUid);
         } catch (DAOException e) {
-            throw new ServiceException("cannot retrieve in-process order data");
+            throw new RetrievingException("cannot retrieve in-process order data");
         }
     }
 
@@ -95,7 +98,7 @@ public class OrderServiceImpl implements OrderService {
         try {
             dao.changeOrderStatus(uid, status);
         } catch (DAOException e) {
-            throw new ServiceException("cannot change order status");
+            throw new UpdateException("cannot change order status");
         }
     }
 
@@ -107,7 +110,7 @@ public class OrderServiceImpl implements OrderService {
         try {
             return dao.getOrder(uid);
         } catch (DAOException e) {
-            throw new ServiceException("cannot retrieve order data");
+            throw new RetrievingException("cannot retrieve order data");
         }
     }
 }

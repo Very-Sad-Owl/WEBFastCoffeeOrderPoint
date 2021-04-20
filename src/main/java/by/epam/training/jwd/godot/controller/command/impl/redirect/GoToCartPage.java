@@ -37,7 +37,7 @@ public class GoToCartPage implements Command {
             request.setAttribute("cart", cart);
             request.setAttribute("spots", spotsService.getAll());
             request.setAttribute("payment_methods", paymentMethods);
-            LOGGER.info(cart);
+            LOGGER.info(spotsService.getAll());
         } catch (ServiceException e) {
             LOGGER.error(e.getMessage());
             response.sendRedirect(GOTOERRORPAGE);

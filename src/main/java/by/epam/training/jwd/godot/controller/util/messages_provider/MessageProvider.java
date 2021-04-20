@@ -17,8 +17,7 @@ public class MessageProvider {
 
         public MessageProvider(Locale locale){
         ResourceBundle.clearCache();
-        ResourceBundle rb = ResourceBundle.getBundle(BUNDLE_BASE_TITLE, new Locale("ru", "RU"));
-        String rus = rb.getString(INVALID_LOGIN_MSG);
+        ResourceBundle rb = ResourceBundle.getBundle(BUNDLE_BASE_TITLE, locale);
         messages.put(InvalidLoginException.class.getSimpleName(), rb.getString(INVALID_LOGIN_MSG));
         messages.put(InvalidEmailException.class.getSimpleName(), rb.getString(INVALID_EMAIL_MSG));
         messages.put(InvalidPasswordException.class.getSimpleName(), rb.getString(INVALID_PASSWORD_MSG));
@@ -33,6 +32,8 @@ public class MessageProvider {
         messages.put(RequestParam.UPDATE_ACTION, rb.getString(UPDATE_SUCCESS_MSG));
         messages.put(RequestParam.UNBAN_ACTION, rb.getString(UNBAN_SUCCESS_MSG));
         messages.put(RequestParam.BAN_ACTION, rb.getString(BAN_SUCCESS_MSG));
+        messages.put(RetrievingException.class.getSimpleName(), RETRIEVING_ERROR);
+        messages.put(RequestParam.ORDER_UID, UID_INFO);
     }
 
     public String getMessage(String cause){

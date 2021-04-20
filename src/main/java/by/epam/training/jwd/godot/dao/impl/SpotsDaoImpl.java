@@ -11,14 +11,14 @@ import by.epam.training.jwd.godot.dao.connection.ConnectionProvider;
 import by.epam.training.jwd.godot.dao.connection.ecxeption.ConnectionPoolException;
 import by.epam.training.jwd.godot.dao.constant.*;
 import by.epam.training.jwd.godot.dao.exception.DAOException;
+import by.epam.training.jwd.godot.dao.util.IngredientDataConverter;
+import by.epam.training.jwd.godot.dao.util.SpotDataConverter;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static by.epam.training.jwd.godot.dao.constant.AddressTable.ID;
-import static by.epam.training.jwd.godot.dao.constant.CoffespotTable.*;
 import static by.epam.training.jwd.godot.dao.constant.SQLQuery.*;
 
 public class SpotsDaoImpl implements SpotsDao {
@@ -40,21 +40,22 @@ public class SpotsDaoImpl implements SpotsDao {
             st = con.prepareStatement(GET_ALL_COFFEE_SPOTS);
             rs = st.executeQuery();
             while(rs.next()) {
-                long uid = rs.getLong(ID);
-                double balance = rs.getDouble(BALANCE);
-                double rating = rs.getDouble(RATING);
-                long addressId = rs.getLong(ADDRESS);
+//                long uid = rs.getLong(ID);
+//                double balance = rs.getDouble(BALANCE);
+//                double rating = rs.getDouble(RATING);
 
-                String region = rs.getString(CoveredRegionsTable.REGION);
-                String region_ru = rs.getString(CoveredRegionsTable.REGION_RU);
-                String city = rs.getString(CoveredCitiesTable.CITY);
-                String city_ru = rs.getString(CoveredCitiesTable.CITY_RU);
-                String street = rs.getString(AddressTable.STREET);
-                String street_ru = rs.getString(AddressTable.STREET_RU);
-                String house = rs.getString(AddressTable.HOUSE);
-                Address address = new Address(region, region_ru, city, city_ru, street, street_ru, house);
+//                String region = rs.getString(CoveredRegionsTable.REGION);
+//                String region_ru = rs.getString(CoveredRegionsTable.REGION_RU);
+//                String city = rs.getString(CoveredCitiesTable.CITY);
+//                String city_ru = rs.getString(CoveredCitiesTable.CITY_RU);
+//                String street = rs.getString(AddressTable.STREET);
+//                String street_ru = rs.getString(AddressTable.STREET_RU);
+//                String house = rs.getString(AddressTable.HOUSE);
+//                Address address = new Address(region, region_ru, city, city_ru, street, street_ru, house);
+//
+//                Spot spot = new Spot(uid, rating, balance, address);
 
-                Spot spot = new Spot(uid, rating, balance, address);
+                Spot spot = new SpotDataConverter().resultSetToSpot(rs);
 
                 all.add(spot);
             }
@@ -69,7 +70,7 @@ public class SpotsDaoImpl implements SpotsDao {
     }
 
     @Override
-    public void deleteSpot(long uid) throws DAOException {
+    public boolean deleteSpot(long uid) throws DAOException {
         PreparedStatement st = null;
         ConnectionPool pool = null;
         Connection con = null;
@@ -79,6 +80,8 @@ public class SpotsDaoImpl implements SpotsDao {
             con = pool.takeConnection();
             st = con.prepareStatement(DELETE_SPOT);
             st.setLong(1, uid);
+            st.executeUpdate();
+            return true;
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException(e);
         } finally {
@@ -137,10 +140,11 @@ public class SpotsDaoImpl implements SpotsDao {
     }
 
     @Override
-    public void addSpot(Address address) throws DAOException {
+    public long addSpot(Address address) throws DAOException {
         PreparedStatement ps = null;
         ConnectionPool pool = null;
         Connection con = null;
+        long insertedSpotId = -1;
 
         try {
             pool = ConnectionProvider.getConnectionPool();
@@ -183,13 +187,18 @@ public class SpotsDaoImpl implements SpotsDao {
             ps.setString(5, address.getHouse());
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
-            while (rs.next()) {
+            if (rs.next()) {
                 long id = rs.getLong(1);
-                ps = con.prepareStatement(INSERT_SPOT);
+                ps = con.prepareStatement(INSERT_SPOT, Statement.RETURN_GENERATED_KEYS);
                 ps.setLong(1, id);
                 ps.executeUpdate();
+                ResultSet spotInsertionRs = ps.getGeneratedKeys();
+                if(spotInsertionRs.next()){
+                    insertedSpotId = spotInsertionRs.getLong(1);
+                }
             }
             con.commit();
+            return insertedSpotId;
         } catch (SQLException | ConnectionPoolException e) {
             try {
                 if (con != null) {
@@ -260,13 +269,14 @@ public class SpotsDaoImpl implements SpotsDao {
             st.setString(1, title);
             rs = st.executeQuery();
             while(rs.next()) {
-                int amount = rs.getInt(RecepitsTable.AMOUNT);
-                double price = rs.getDouble(CoffeeTable.INGREDIENT_PRICE);
-                String imgSource = rs.getString(CoffeeTable.IMG);
-                SeasonType seasonType = SeasonType.valueOf(rs.getString(CoffeeTable.SEASON_TITLE).toUpperCase());
-                IngredientType ingredientType = IngredientType.valueOf(rs.getString(CoffeeTable.INGREDIENT_TYPE_TITLE).toUpperCase());
-
-                ingredient = new Ingredient(title, amount, price, ingredientType, imgSource, seasonType);
+//                int amount = rs.getInt(RecepitsTable.AMOUNT);
+//                double price = rs.getDouble(CoffeeTable.INGREDIENT_PRICE);
+//                String imgSource = rs.getString(CoffeeTable.IMG);
+//                SeasonType seasonType = SeasonType.valueOf(rs.getString(CoffeeTable.SEASON_TITLE).toUpperCase());
+//                IngredientType ingredientType = IngredientType.valueOf(rs.getString(CoffeeTable.INGREDIENT_TYPE_TITLE).toUpperCase());
+//
+//                ingredient = new Ingredient(title, amount, price, ingredientType, imgSource, seasonType);
+                ingredient = new IngredientDataConverter().retrieveEmptyFromJoinQueryResultSet(rs);
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException(e);

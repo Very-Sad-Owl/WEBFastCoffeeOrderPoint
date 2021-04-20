@@ -9,6 +9,7 @@ import by.epam.training.jwd.godot.dao.UserDao;
 import by.epam.training.jwd.godot.dao.connection.ConnectionPool;
 import by.epam.training.jwd.godot.dao.connection.ConnectionProvider;
 import by.epam.training.jwd.godot.dao.connection.ecxeption.ConnectionPoolException;
+import by.epam.training.jwd.godot.dao.util.UserDataConverter;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -47,14 +48,15 @@ public class UserDaoImpl implements UserDao {
 			rs = st.executeQuery();
 
 			while(rs.next()) {
-				String foundLogin = rs.getString(LOGIN_COL);
-				String foundPassword = rs.getString(PASSWORD_COL);
-				String foundEmail = rs.getString(EMAIL_COL);
-				double foundBalance = rs.getDouble(BALANCE_COL);
-				UserRole foundRole = UserRole.valueOf(rs.getString(USER_ROLE).toUpperCase());
-				String avatar = rs.getString(USER_IMG);
-
-				user = new User(foundLogin, foundPassword, foundEmail, foundBalance, foundRole, avatar);
+//				String foundLogin = rs.getString(LOGIN_COL);
+//				String foundPassword = rs.getString(PASSWORD_COL);
+//				String foundEmail = rs.getString(EMAIL_COL);
+//				double foundBalance = rs.getDouble(BALANCE_COL);
+//				UserRole foundRole = UserRole.valueOf(rs.getString(USER_ROLE).toUpperCase());
+//				String avatar = rs.getString(USER_IMG);
+//
+//				user = new User(foundLogin, foundPassword, foundEmail, foundBalance, foundRole, avatar);
+				user = new UserDataConverter().resultSetToUser(rs);
 			}
 		} catch (SQLException | ConnectionPoolException e) {
 			LOGGER.error(e);
@@ -94,7 +96,7 @@ public class UserDaoImpl implements UserDao {
 			}
 		}
 
-		return res == 0;
+		return res != 0;
 	}
 
 	@Override
@@ -113,15 +115,15 @@ public class UserDaoImpl implements UserDao {
 			rs = st.executeQuery(GET_ALL_USERS_DATA);
 
 			while(rs.next()) {
-				String foundLogin = rs.getString(LOGIN_COL);
-				String foundPassword = rs.getString(PASSWORD_COL);
-				String foundEmail = rs.getString(EMAIL_COL);
-				double foundBalance = rs.getDouble(BALANCE_COL);
-				UserRole foundRole = UserRole.valueOf(rs.getString(USER_ROLE).toUpperCase());
-				String avatar = rs.getString(USER_IMG);
-
-				User user = new User(foundLogin, foundPassword, foundEmail, foundBalance, foundRole, avatar);
-
+//				String foundLogin = rs.getString(LOGIN_COL);
+//				String foundPassword = rs.getString(PASSWORD_COL);
+//				String foundEmail = rs.getString(EMAIL_COL);
+//				double foundBalance = rs.getDouble(BALANCE_COL);
+//				UserRole foundRole = UserRole.valueOf(rs.getString(USER_ROLE).toUpperCase());
+//				String avatar = rs.getString(USER_IMG);
+//
+//				User user = new User(foundLogin, foundPassword, foundEmail, foundBalance, foundRole, avatar);
+				User user = new UserDataConverter().resultSetToUser(rs);
 				users.add(user);
 			}
 		} catch (SQLException | ConnectionPoolException e) {
@@ -159,7 +161,7 @@ public class UserDaoImpl implements UserDao {
 			}
 		}
 
-		return res == 0;
+		return res != 0;
 	}
 
 	@Override
@@ -191,7 +193,7 @@ public class UserDaoImpl implements UserDao {
 			}
 		}
 
-		return res == 0;
+		return res != 0;
 	}
 
 	@Override
@@ -218,7 +220,7 @@ public class UserDaoImpl implements UserDao {
 				pool.closeConnection(con, ps);
 			}
 		}
-		return res == 0;
+		return res != 0;
 	}
 
 	@Override
@@ -266,14 +268,15 @@ public class UserDaoImpl implements UserDao {
 			rs = st.executeQuery();
 
 			while(rs.next()) {
-				String foundLogin = rs.getString(LOGIN_COL);
-				String foundPassword = rs.getString(PASSWORD_COL);
-				String foundEmail = rs.getString(EMAIL_COL);
-				double foundBalance = rs.getDouble(BALANCE_COL);
-				UserRole foundRole = UserRole.valueOf(rs.getString(USER_ROLE).toUpperCase());
-				String avatar = rs.getString(USER_IMG);
-
-				user = new User(foundLogin, foundPassword, foundEmail, foundBalance, foundRole, avatar);
+//				String foundLogin = rs.getString(LOGIN_COL);
+//				String foundPassword = rs.getString(PASSWORD_COL);
+//				String foundEmail = rs.getString(EMAIL_COL);
+//				double foundBalance = rs.getDouble(BALANCE_COL);
+//				UserRole foundRole = UserRole.valueOf(rs.getString(USER_ROLE).toUpperCase());
+//				String avatar = rs.getString(USER_IMG);
+//
+//				user = new User(foundLogin, foundPassword, foundEmail, foundBalance, foundRole, avatar);
+				user = new UserDataConverter().resultSetToUser(rs);
 			}
 		} catch (SQLException | ConnectionPoolException e) {
 			LOGGER.error(e);

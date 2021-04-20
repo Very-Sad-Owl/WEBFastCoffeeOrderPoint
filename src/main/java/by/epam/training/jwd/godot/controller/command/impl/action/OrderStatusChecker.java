@@ -3,6 +3,7 @@ package by.epam.training.jwd.godot.controller.command.impl.action;
 import by.epam.training.jwd.godot.bean.order_element.Order;
 import by.epam.training.jwd.godot.bean.order_element.OrderStatus;
 import by.epam.training.jwd.godot.controller.command.Command;
+import by.epam.training.jwd.godot.controller.util.messages_provider.MessageProvider;
 import by.epam.training.jwd.godot.service.OrderService;
 import by.epam.training.jwd.godot.service.ServiceProvider;
 import by.epam.training.jwd.godot.service.exception.ServiceException;
@@ -13,6 +14,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Locale;
+
+import static by.epam.training.jwd.godot.controller.command.resource.SessionAttr.LOCALE;
 
 public class OrderStatusChecker implements Command {
 
@@ -20,6 +24,8 @@ public class OrderStatusChecker implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        MessageProvider msgProvider = new MessageProvider(new Locale((String) request.getSession().getAttribute(LOCALE)));
+
         ServiceProvider provider = ServiceProvider.getInstance();
         OrderService service = provider.getOrderService();
 
@@ -34,7 +40,7 @@ public class OrderStatusChecker implements Command {
             LOGGER.info(sizesJson);
         } catch (ServiceException e) {
             LOGGER.error(e);
-            response.getWriter().write("service error");
+            response.getWriter().write(msgProvider.getMessage(e.getClass().getSimpleName()));
         } finally {
             response.getWriter().flush();
             response.getWriter().close();

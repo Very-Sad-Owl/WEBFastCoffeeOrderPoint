@@ -3,6 +3,7 @@ package by.epam.training.jwd.godot.dao.util;
 import by.epam.training.jwd.godot.bean.coffee.IngredientType;
 import by.epam.training.jwd.godot.bean.coffee.SeasonType;
 import by.epam.training.jwd.godot.bean.coffee.Ingredient;
+import by.epam.training.jwd.godot.dao.constant.RecepitsTable;
 import org.apache.log4j.Logger;
 
 import java.sql.ResultSet;
@@ -67,21 +68,21 @@ public class IngredientDataConverter {
         return ingredient;
     }
 
-    public Ingredient retrieveFromJoinQueryResultSet(ResultSet rs) throws SQLException {
-        String title = rs.getString(JoinedTableRows.TITLE.toString());
-        double price = rs.getDouble(JoinedTableRows.PRICE.toString());
-        String img = rs.getString(JoinedTableRows.IMG.toString());
-        int quantity = rs.getInt(JoinedTableRows.AMOUNT.toString());
-        String ingredientType = rs.getString(JoinedTableRows.TYPE.toString());
-        String seasonType = rs.getString(JoinedTableRows.SEASON.toString());
+    public Ingredient retrieveEmptyFromJoinQueryResultSet(ResultSet rs) throws SQLException {
+        int amount = rs.getInt(RecepitsTable.AMOUNT);
+        String title = rs.getString(TableRows.TITLE.toString());
+        double price = rs.getDouble(TableRows.PRICE.toString());
+        String img = rs.getString(TableRows.IMG.toString());
+        String ingredientType = rs.getString(TableRows.TYPE.toString());
+        String seasonType = rs.getString(TableRows.SEASON.toString());
 
         Ingredient ingredient = new Ingredient();
-        ingredient.setIngredientType(IngredientType.valueOf(ingredientType));
+        ingredient.setIngredientType(IngredientType.valueOf(ingredientType.toUpperCase()));
         ingredient.setImgPath(img);
         ingredient.setCoast(price);
-        ingredient.setQuantity(quantity);
-        ingredient.setSeasonType(SeasonType.valueOf(seasonType));
+        ingredient.setSeasonType(SeasonType.valueOf(seasonType.toUpperCase()));
         ingredient.setTitle(title);
+        ingredient.setQuantity(amount);
 
         return ingredient;
     }

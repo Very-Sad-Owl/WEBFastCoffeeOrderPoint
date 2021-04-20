@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<link rel='stylesheet' href='../../css/modal_style/alert.css' type='text/css' media='all'/>
 
 <fmt:setLocale value = "${sessionScope.locale == null ? 'en' : sessionScope.locale}"/>
 <fmt:setBundle basename="locale" var="loc"/>

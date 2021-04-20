@@ -36,6 +36,8 @@ function deleteUser(login) {
             {
                 alert(xmlhttp.responseText);
             }
+            document.getElementById("alert_modal").style.display = "block";
+            document.getElementById("msg").innerHTML = xmlhttp.responseText;
         }
     };
 
@@ -61,6 +63,8 @@ function banUser(login) {
             {
                 alert(xmlhttp.responseText);
             }
+            document.getElementById("alert_modal").style.display = "block";
+            document.getElementById("msg").innerHTML = xmlhttp.responseText;
         }
     };
 
@@ -86,6 +90,8 @@ function unbanUser(login) {
             {
                 alert(xmlhttp.responseText);
             }
+            document.getElementById("alert_modal").style.display = "block";
+            document.getElementById("msg").innerHTML = xmlhttp.responseText;
         }
     };
 

@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface SpotsDao {
     List<Spot> getAll() throws DAOException;
-    void deleteSpot(long uid) throws DAOException;
+    boolean deleteSpot(long uid) throws DAOException;
     void updateSpot(Address address, long uid) throws DAOException;
-    void addSpot(Address address) throws DAOException;
+    long addSpot(Address address) throws DAOException;
     List<Ingredient> getSpotIngredients(long uid) throws DAOException;
     Ingredient getSpotIngredient(String title) throws DAOException;
     void buyIngredient(long spotUid, String ingredient, int amount) throws DAOException;

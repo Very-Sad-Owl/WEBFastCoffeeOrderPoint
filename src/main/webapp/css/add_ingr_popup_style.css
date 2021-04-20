@@ -1,5 +1,5 @@
 /* The popup form - hidden by default */
-.edit_ingredient_popup {
+.add_ingredient_popup {
   display: none;
   position: fixed;
   top: 50%;

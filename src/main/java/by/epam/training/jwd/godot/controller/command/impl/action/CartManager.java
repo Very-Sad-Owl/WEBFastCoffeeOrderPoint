@@ -2,6 +2,7 @@ package by.epam.training.jwd.godot.controller.command.impl.action;
 
 import by.epam.training.jwd.godot.bean.order_element.PaymentMethod;
 import by.epam.training.jwd.godot.controller.command.Command;
+import by.epam.training.jwd.godot.controller.util.messages_provider.MessageProvider;
 import by.epam.training.jwd.godot.service.OrderService;
 import by.epam.training.jwd.godot.service.ServiceProvider;
 import by.epam.training.jwd.godot.service.exception.ServiceException;
@@ -11,9 +12,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Locale;
 
 import static by.epam.training.jwd.godot.controller.command.resource.RequestParam.*;
 import static by.epam.training.jwd.godot.controller.command.resource.CommandUrlPath.*;
+import static by.epam.training.jwd.godot.controller.command.resource.SessionAttr.LOCALE;
 
 public class CartManager implements Command {
 
@@ -21,6 +24,8 @@ public class CartManager implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        MessageProvider msgProvider = new MessageProvider(new Locale((String) request.getSession().getAttribute(LOCALE)));
+
         ServiceProvider provider = ServiceProvider.getInstance();
         OrderService service = provider.getOrderService();
 
@@ -33,8 +38,9 @@ public class CartManager implements Command {
         try {
             service.placeOrder(orderUid, selectedSpot, PaymentMethod.valueOf(selectedPaymet.toUpperCase()),
                     selectedPositions, selectedAmounts, estimatedTime);
-            response.sendRedirect(GOTOCHECKORDERPAGE);
+            response.getWriter().write(String.format(msgProvider.getMessage(ORDER_UID), orderUid+""));
         } catch (ServiceException e) {
+            response.getWriter().print(msgProvider.getMessage(e.getClass().getSimpleName()));
             LOGGER.error(e);
         } finally {
             response.getWriter().flush();

@@ -48,6 +48,7 @@ public interface RequestParam {
 
     //user
     String USERS_LIST = "users";
+    String USER = "user";
 
     //point
     String REGION = "region";

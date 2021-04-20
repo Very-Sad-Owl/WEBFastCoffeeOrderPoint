@@ -15,4 +15,6 @@ public interface MessagesLocaleNames {
     String UPDATE_SUCCESS_MSG = "locale.update.success";
     String BAN_SUCCESS_MSG = "locale.ban.success";
     String UNBAN_SUCCESS_MSG = "locale.unban.success";
+    String RETRIEVING_ERROR = "locale.retrieving.error";
+    String UID_INFO = "locale.order.uid.msg";
 }

@@ -7,6 +7,7 @@ import by.epam.training.jwd.godot.dao.DaoProvider;
 import by.epam.training.jwd.godot.dao.SpotsDao;
 import by.epam.training.jwd.godot.dao.exception.DAOException;
 import by.epam.training.jwd.godot.service.SpotsService;
+import by.epam.training.jwd.godot.service.exception.DeleteException;
 import by.epam.training.jwd.godot.service.exception.InsertionException;
 import by.epam.training.jwd.godot.service.exception.ServiceException;
 import by.epam.training.jwd.godot.service.exception.UpdateException;
@@ -37,7 +38,7 @@ public class SpotsServiceImpl implements SpotsService {
         try {
             dao.deleteSpot(uid);
         } catch (DAOException e) {
-            throw new ServiceException("Cannot delete spot data");
+            throw new DeleteException("Cannot delete spot data");
         }
     }
 
@@ -51,7 +52,7 @@ public class SpotsServiceImpl implements SpotsService {
             Address updated = new Address(region, regionRu, city, cityRu, street, streetRu, house);
             dao.updateSpot(updated, uid);
         } catch (DAOException e) {
-            throw new ServiceException("Cannot update spot data");
+            throw new UpdateException("Cannot update spot data");
         }
     }
 
@@ -65,7 +66,7 @@ public class SpotsServiceImpl implements SpotsService {
             Address address = new Address(region, regionRu, city, cityRu, street, streetRu, house);
             dao.addSpot(address);
         } catch (DAOException e) {
-            throw new ServiceException("cannot insert new spot");
+            throw new InsertionException("cannot insert new spot");
         }
     }
 

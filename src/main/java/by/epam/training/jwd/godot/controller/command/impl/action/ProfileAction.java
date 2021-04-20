@@ -32,20 +32,19 @@ public class ProfileAction implements Command {
 
         switch (action){
             case CHANGE_IMAGE:
-                LOGGER.info("upload\n");
                 try {
                     String folderPath = "D:/botanstvo/java/godot_coffee_spot/src/main/webapp/resources/image/profile_img/";
                     ImageSaver saver = new ImageSaver();
                     String relPath = "resources/image/profile_img/" + saver.upload(request.getParts(), folderPath);
 
-                    User current = (User)request.getSession().getAttribute("user");
+                    User current = (User)request.getSession().getAttribute(USER);
                     service.changeAvatar(current.getLogin(), relPath);
-                    request.getSession().setAttribute("user", service.retrieveUser(current.getLogin()));
+                    request.getSession().setAttribute(USER, service.retrieveUser(current.getLogin()));
 
                     response.getWriter().print(relPath);
                 } catch (ServiceException e) {
                     response.getWriter().print(msgProvider.getMessage(e.getClass().getSimpleName()));
-                    e.printStackTrace(); //TODO: убрать эту порнографию
+                    LOGGER.error(e);
                 }
                 break;
             case UPDATE_ACTION:
@@ -55,11 +54,11 @@ public class ProfileAction implements Command {
 
                 try {
                     service.changeUserContacts(login, email, password);
-                    request.getSession().setAttribute("user", service.retrieveUser(login));
+                    request.getSession().setAttribute(USER, service.retrieveUser(login));
                     response.getWriter().print(msgProvider.getMessage(UPDATE_ACTION));
                 } catch (ServiceException e) {
                     response.getWriter().print(msgProvider.getMessage(e.getClass().getSimpleName()));
-                    e.printStackTrace(); //TODO: эту тоже
+                    LOGGER.error(e);
                 }
                 break;
         }

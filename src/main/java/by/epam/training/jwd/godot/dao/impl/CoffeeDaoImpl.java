@@ -234,9 +234,7 @@ public class CoffeeDaoImpl implements CoffeeDao {
             con = pool.takeConnection();
             st = con.prepareStatement(DELETE_INGREDIENT);
             st.setString(1, title);
-            res = st.executeUpdate() != 0;
-
-            LOGGER.info(st);
+            return st.executeUpdate() != 0;
 
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException(e);
@@ -245,7 +243,6 @@ public class CoffeeDaoImpl implements CoffeeDao {
                 pool.closeConnection(con, st);
             }
         }
-        return res;
     }
 
     @Override

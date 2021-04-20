@@ -27,7 +27,7 @@
             <td>${n.title}</td>
             <td>${n.ingredientType}</td>
             <td>${n.seasonType}</td>
-            <td>${n.coast}</td>
+            <td id = "${n.title}${"_coast"}">${n.coast}</td>
             <td>${n.quantity}</td>
             <td>
                 <img src="${'../'}${n.imgPath}" alt="${n.title}"/>

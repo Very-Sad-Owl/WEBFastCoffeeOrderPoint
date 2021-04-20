@@ -4,7 +4,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
-<link href="../css/edit_ingr_popup_style.css" rel="stylesheet" type="text/css">
+<link href="../css/add_ingr_popup_style.css" rel="stylesheet" type="text/css">
 <link rel='stylesheet' href='../css/ingredient_form_style.css' type='text/css' media='all'/>
 <%--<script type="text/javascript" src="../js/ingredient_management.js"></script>--%>'
 <script src="http://code.jquery.com/jquery-2.2.4.js"

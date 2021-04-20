@@ -10,7 +10,7 @@
 <script type="text/javascript" src="../../js/scripts.js"></script>
 <link href="../../css/edit_ingr_popup_style.css" rel="stylesheet" type="text/css">
 <link rel='stylesheet' href='../../css/admin/spot_form_style.css' type='text/css' media='all'/>
-<script type="text/javascript" src="../js/admin/spots_management.js"></script>
+<script type="text/javascript" src="../../js/admin/spots_management.js"></script>
 
 <fmt:setLocale value = "${sessionScope.locale == null ? 'en' : sessionScope.locale}"/>
 <fmt:setBundle basename="locale" var="loc"/>

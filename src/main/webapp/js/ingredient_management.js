@@ -71,7 +71,6 @@ function deleteIngredient(title) {
 
 function onIngredientUpdate(f) {
     let formData = new FormData(f);
-    console.log(formData.get("price"));
 
     $.ajax({
         type : "POST",
@@ -79,6 +78,7 @@ function onIngredientUpdate(f) {
         data: $("#edit_ingredient").serialize(),
         success : function(response) {
             closeEditForm();
+            document.getElementById(formData.get("orig_title")+"_coast").innerText = formData.get("price")+"";
             document.getElementById("alert_modal").style.display = "block";
             document.getElementById("msg").innerHTML = response;
         },
