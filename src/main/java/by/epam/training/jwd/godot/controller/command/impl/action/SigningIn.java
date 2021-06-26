@@ -37,14 +37,10 @@ public class SigningIn implements Command {
 		UserService userService = provider.getUserService();
 		MessageProvider msgProvider = new MessageProvider(new Locale((String) request.getSession().getAttribute(LOCALE)));
 
+		//TODO: is_activated => Role.UNVERIFIED
 		User user = null;
 		try {
 			user = userService.authorization(new SignInInfo(login, password));
-			
-			if (user == null) {
-				response.sendRedirect(String.format(GOTOLOGINPAGE_WITH_MSG,NONEXISTING_USER_MSG));
-				return;
-			}
 
 			if (user.getRole() == UserRole.ADMIN){
 				HttpSession session = request.getSession(true);
@@ -56,10 +52,15 @@ public class SigningIn implements Command {
 				session.setAttribute(AUTHORIZATION, true);
 				session.setAttribute(CURRENT_USER, user);
 				response.sendRedirect(GOTOINDEXPAGE);
-			} else {
+			}
+			else if (user.getRole() == UserRole.BANNED) {
 				HttpSession session = request.getSession(true);
 				session.setAttribute(AUTHORIZATION, false);
-				response.sendRedirect(GOTOINDEXPAGE);
+				response.sendRedirect(String.format(GOTOLOGINPAGE_WITH_MSG, "You have been banned"));
+			} else if (user.getRole() == UserRole.UNVERIFIED){
+				HttpSession session = request.getSession(true);
+				session.setAttribute(AUTHORIZATION, false);
+				response.sendRedirect(String.format(GOTOLOGINPAGE_WITH_MSG, "Please, verify your account first"));
 			}
 		} catch (ServiceException e) {
 			String errorMsg = msgProvider.getMessage(e.getClass().getSimpleName());

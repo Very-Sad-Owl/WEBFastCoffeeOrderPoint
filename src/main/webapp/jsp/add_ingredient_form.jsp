@@ -20,7 +20,7 @@
 
         <label for="ingr_title">Title</label>
         <input id = "ingr_title" type="text" name="title" placeholder="ingr_title" required/>
-
+        <br>
         <input id = "new_img_path" type="hidden" name="img_path" placeholder="img_path" required/>
 
         <label for="ingr_type">Ingredient type</label>
@@ -30,6 +30,7 @@
             </c:forEach>
         </select>
 
+        <br>
         <label for="ingr_season_type">For season</label>
         <select name="season_type" id="ingr_season_type" required>
             <c:forEach items="${requestScope.season_types}" var="n">
@@ -37,6 +38,7 @@
             </c:forEach>
         </select>
 
+        <br>
         <label for="ingr_price">Price</label>
         <input id = "ingr_price" type="number" step="0.01" name="price" placeholder="price" required/>
 

@@ -42,6 +42,11 @@
             <fmt:message bundle="${loc}" key="locale.manage.spots"/>
         </a>
     </div>
+    <div class="option" id = "order_archive">
+        <a href="Controller?command=gotoorderarchivepage">
+            Orders Archive
+        </a>
+    </div>
 </div>
 
 </body>

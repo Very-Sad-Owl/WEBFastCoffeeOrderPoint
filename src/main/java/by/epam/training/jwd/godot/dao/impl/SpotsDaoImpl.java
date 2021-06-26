@@ -9,7 +9,8 @@ import by.epam.training.jwd.godot.dao.SpotsDao;
 import by.epam.training.jwd.godot.dao.connection.ConnectionPool;
 import by.epam.training.jwd.godot.dao.connection.ConnectionProvider;
 import by.epam.training.jwd.godot.dao.connection.ecxeption.ConnectionPoolException;
-import by.epam.training.jwd.godot.dao.constant.*;
+import by.epam.training.jwd.godot.dao.constant.table_column.CoffeeTable;
+import by.epam.training.jwd.godot.dao.constant.table_column.RecepitsTable;
 import by.epam.training.jwd.godot.dao.exception.DAOException;
 import by.epam.training.jwd.godot.dao.util.IngredientDataConverter;
 import by.epam.training.jwd.godot.dao.util.SpotDataConverter;
@@ -269,13 +270,6 @@ public class SpotsDaoImpl implements SpotsDao {
             st.setString(1, title);
             rs = st.executeQuery();
             while(rs.next()) {
-//                int amount = rs.getInt(RecepitsTable.AMOUNT);
-//                double price = rs.getDouble(CoffeeTable.INGREDIENT_PRICE);
-//                String imgSource = rs.getString(CoffeeTable.IMG);
-//                SeasonType seasonType = SeasonType.valueOf(rs.getString(CoffeeTable.SEASON_TITLE).toUpperCase());
-//                IngredientType ingredientType = IngredientType.valueOf(rs.getString(CoffeeTable.INGREDIENT_TYPE_TITLE).toUpperCase());
-//
-//                ingredient = new Ingredient(title, amount, price, ingredientType, imgSource, seasonType);
                 ingredient = new IngredientDataConverter().retrieveEmptyFromJoinQueryResultSet(rs);
             }
         } catch (SQLException | ConnectionPoolException e) {

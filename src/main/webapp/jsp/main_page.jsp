@@ -29,6 +29,10 @@
 
 <jsp:include page="order.jsp" />
 
+<c:if test="${param.message != null}">
+	<script>alert(${param.message})</script>
+</c:if>
+
 <c:if test="${requestScope.chosen != null}">
 	<script>openForm()</script>
 </c:if>

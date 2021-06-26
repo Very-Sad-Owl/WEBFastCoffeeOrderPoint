@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Locale;
 
+import static by.epam.training.jwd.godot.controller.command.resource.RequestParam.ORDER_TO_CHECK;
 import static by.epam.training.jwd.godot.controller.command.resource.SessionAttr.LOCALE;
 
 public class OrderStatusChecker implements Command {
@@ -29,7 +30,7 @@ public class OrderStatusChecker implements Command {
         ServiceProvider provider = ServiceProvider.getInstance();
         OrderService service = provider.getOrderService();
 
-        long orderUid = Long.parseLong(request.getParameter("order_to_check"));
+        long orderUid = Long.parseLong(request.getParameter(ORDER_TO_CHECK));
 
         try {
             Order found = service.getOrder(orderUid);
@@ -37,7 +38,6 @@ public class OrderStatusChecker implements Command {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(sizesJson);
-            LOGGER.info(sizesJson);
         } catch (ServiceException e) {
             LOGGER.error(e);
             response.getWriter().write(msgProvider.getMessage(e.getClass().getSimpleName()));

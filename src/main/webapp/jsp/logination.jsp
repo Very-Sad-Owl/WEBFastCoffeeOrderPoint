@@ -31,7 +31,12 @@
       </a>
     </form>
   <div class = "error">
-      <br><p id = "error"><fmt:message bundle="${loc}" key="${param.message != null ? param.message : ''}"/></p>
+      <br>
+        <p id = "error">
+            <c:if test="${param.message != null}">
+              <fmt:message bundle="${loc}" key="${param.message}"/>
+            </c:if>
+       </p>
   </div>
 </div>
 

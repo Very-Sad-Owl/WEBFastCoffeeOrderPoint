@@ -30,8 +30,8 @@ public class CartManager implements Command {
         OrderService service = provider.getOrderService();
 
         long orderUid = Long.parseLong(request.getParameter(ORDER_UID));
-        String[] selectedPositions = request.getParameterValues(SELECTED_POSITIONS);
-        String[] selectedAmounts = request.getParameterValues(SELECTED_POSITIONS_AMOUNTS);
+        String[] selectedPositions = request.getParameterValues(SELECTED_INGREDIENTS);
+        String[] selectedAmounts = request.getParameterValues(INGREDIENT_AMOUNT);
         long selectedSpot = Long.parseLong(request.getParameter(AVAILABLE_SPOTS));
         String selectedPaymet = request.getParameter(AVAILABLE_PAYMENT_METHODS);
         int estimatedTime = Integer.parseInt(request.getParameter(ESTIMATED_TIME));

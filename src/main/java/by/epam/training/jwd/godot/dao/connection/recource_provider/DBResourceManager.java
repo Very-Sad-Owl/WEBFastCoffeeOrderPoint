@@ -14,10 +14,11 @@ public class DBResourceManager {
         return instance;
     }
 
-    public String getValue(String key){
-        return bundle.getString(key);
-    }
 //    public String getValue(String key){
-//    return testBundle.getString(key);
-//}
+//        return bundle.getString(key);
+//    }
+
+    public String getValue(String key){
+        return testBundle.getString(key);
+    }
 }

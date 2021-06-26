@@ -16,6 +16,9 @@ public interface OrderService {
                     String[] selectedPos, String[] selectedAmounts, int estimatedTime) throws ServiceException;
     OrderStatus getOrderStatus(long orderUid) throws ServiceException;
     List<Order> getInProcessOrders(long spotUid) throws ServiceException;
+
+    List<Order> getOrders() throws ServiceException;
+
     void changeOrderStatus(long uid, OrderStatus status) throws ServiceException;
     Order getOrder(long uid) throws ServiceException;
 }

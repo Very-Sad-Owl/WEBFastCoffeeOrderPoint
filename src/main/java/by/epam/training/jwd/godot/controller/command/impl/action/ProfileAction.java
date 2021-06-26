@@ -2,6 +2,7 @@ package by.epam.training.jwd.godot.controller.command.impl.action;
 
 import by.epam.training.jwd.godot.bean.user.User;
 import by.epam.training.jwd.godot.controller.command.Command;
+import by.epam.training.jwd.godot.controller.recource_provider.FolderResourceManager;
 import by.epam.training.jwd.godot.controller.util.messages_provider.MessageProvider;
 import by.epam.training.jwd.godot.service.ServiceProvider;
 import by.epam.training.jwd.godot.service.UserService;
@@ -17,10 +18,12 @@ import java.util.Locale;
 
 import static by.epam.training.jwd.godot.controller.command.resource.RequestParam.*;
 import static by.epam.training.jwd.godot.controller.command.resource.SessionAttr.LOCALE;
+import static by.epam.training.jwd.godot.controller.recource_provider.FolderParameter.*;
 
 public class ProfileAction implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(ProfileAction.class);
+    private static final FolderResourceManager resourceManager = FolderResourceManager.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,9 +36,10 @@ public class ProfileAction implements Command {
         switch (action){
             case CHANGE_IMAGE:
                 try {
-                    String folderPath = "D:/botanstvo/java/godot_coffee_spot/src/main/webapp/resources/image/profile_img/";
+                    String folderPath = resourceManager.getValue(USER_IMG_FULL_PATH);
                     ImageSaver saver = new ImageSaver();
-                    String relPath = "resources/image/profile_img/" + saver.upload(request.getParts(), folderPath);
+                    String relPath = resourceManager.getValue(USER_IMG_REL_PATH)
+                            + saver.upload(request.getParts(), folderPath);
 
                     User current = (User)request.getSession().getAttribute(USER);
                     service.changeAvatar(current.getLogin(), relPath);
@@ -48,9 +52,9 @@ public class ProfileAction implements Command {
                 }
                 break;
             case UPDATE_ACTION:
-                String login = request.getParameter(USER_LOGIN);
-                String password = request.getParameter(USER_PASSWORD);
-                String email = request.getParameter(USER_EMAIL);
+                String login = request.getParameter(LOGIN);
+                String password = request.getParameter(PASSWORD);
+                String email = request.getParameter(EMAIL);
 
                 try {
                     service.changeUserContacts(login, email, password);

@@ -16,4 +16,7 @@ public interface UserService {
 	boolean changeAvatar(String login, String imgPath) throws ServiceException;
 	boolean changeUserContacts(String login, String email, String password) throws ServiceException;
 	User retrieveUser(String login) throws ServiceException;
+	User retrieveUser(String login, String hash) throws ServiceException;
+	void checkEmailBanned(RegistrationInfo info) throws ServiceException;
+	void activateAccount(User user) throws ServiceException;
 }

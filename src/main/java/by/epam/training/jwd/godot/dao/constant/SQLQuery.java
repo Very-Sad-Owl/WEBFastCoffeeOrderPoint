@@ -2,8 +2,8 @@ package by.epam.training.jwd.godot.dao.constant;
 
 import by.epam.training.jwd.godot.bean.coffee.IngredientType;
 
-import static by.epam.training.jwd.godot.dao.constant.CoffeeTable.*;
-import static by.epam.training.jwd.godot.dao.constant.CoffeeTable.INGREDIENT_TITLE;
+import static by.epam.training.jwd.godot.dao.constant.table_column.CoffeeTable.*;
+import static by.epam.training.jwd.godot.dao.constant.table_column.CoffeeTable.INGREDIENT_TITLE;
 
 public interface SQLQuery {
 
@@ -64,6 +64,7 @@ public interface SQLQuery {
     String SET_ORDER_STATUS = "update orders set status_id = (select id from order_statuses where status = ?) where id = ?";
     String SET_INCOME = "update coffee_spot set balance = balance + income_increment * (select price from orders where id = ?)";
     String SET_CONSUMPTION = "update coffee_spot set balance = balance - (select price from orders where id = ?)";
+    String GET_ORDERS = "select * from orders join order_statuses on status_id = order_statuses.id join users on user_id = users.id join roles on users.role_id = roles.id";
 
     //spots
     String GET_SPOT = "select * from coffeespot join addresses on coffeespot.address_id = addresses.id join covered_regions on region_id = covered_regions.id join covered_cities on city_id = covered_cities.id where coffeespot.id = ?";

@@ -17,4 +17,5 @@ public interface MessagesLocaleNames {
     String UNBAN_SUCCESS_MSG = "locale.unban.success";
     String RETRIEVING_ERROR = "locale.retrieving.error";
     String UID_INFO = "locale.order.uid.msg";
+    String EMAIL_BANNED = "locale.ban.alert";
 }

@@ -36,6 +36,7 @@ public class UsersManager implements Command {
                         service.deleteUser(toDelete);
                         response.getWriter().print(msgProvider.getMessage(DELETE_ACTION));
                     } catch (ServiceException e) {
+                        LOGGER.warn(e);
                         response.getWriter().print(msgProvider.getMessage(e.getClass().getSimpleName()));
                     }
                 }
@@ -48,6 +49,7 @@ public class UsersManager implements Command {
                         service.banUser(toDelete, true);
                         response.getWriter().print(msgProvider.getMessage(BAN_ACTION));
                     } catch (ServiceException e) {
+                        LOGGER.warn(e);
                         response.getWriter().print(msgProvider.getMessage(e.getClass().getSimpleName()));
                     }
                 }
@@ -60,13 +62,13 @@ public class UsersManager implements Command {
                         service.banUser(toDelete, false);
                         response.getWriter().print(msgProvider.getMessage(UNBAN_ACTION));
                     } catch (ServiceException e) {
+                        LOGGER.warn(e);
                         response.getWriter().print(msgProvider.getMessage(e.getClass().getSimpleName()));
                     }
                 }
                 break;
             }
         }
-
         response.getWriter().flush();
         response.getWriter().close();
     }

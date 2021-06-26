@@ -15,6 +15,7 @@ function openForm(id) {
     });
 }
 
+
 function createDecorForm(decor, sizes, chosen) {
     var decor_div = document.getElementById("pos_properties");
     var size_div = document.getElementById("size_list");

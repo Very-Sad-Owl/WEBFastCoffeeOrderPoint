@@ -32,13 +32,12 @@ public class GoToIngredientManagementPage implements Command {
         try {
             List<Ingredient> ingredients = service.getAllIngredients();
             List<String> columns = service.getIngredientColumns();
-            request.setAttribute(INGREDIENTS, ingredients);
+            request.setAttribute(INGREDIENT_LIST, ingredients);
             request.setAttribute(INGREDIENT_COLUMNS, columns);
             request.setAttribute("ingredient_types", IngredientType.values());
             request.setAttribute("season_types", SeasonType.values());
         } catch (ServiceException e) {
             LOGGER.error(e);
-            response.sendRedirect(GOTOERRORPAGE);
         }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(CommandUrlPath.INGREDIENTS_MANAGE_PAGE);
         requestDispatcher.forward(request, response);

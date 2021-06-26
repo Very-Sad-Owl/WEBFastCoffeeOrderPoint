@@ -18,12 +18,12 @@ public class UserDaoImplTest {
         assertNotNull(user);
     }
 
-    @Test
-    public void insertUserTest() throws DAOException {
-        boolean res = dao.registration(new RegistrationInfo("oleg", "720290", "oleg.gmail.com"));
-
-        assertNotEquals(0, res);
-    }
+//    @Test
+//    public void insertUserTest() throws DAOException {
+//        boolean res = dao.registration(new RegistrationInfo("oleg", "720290", "oleg.gmail.com"));
+//
+//        assertNotEquals(0, res);
+//    }
 
     @Test
     public void banUserTest() throws DAOException {

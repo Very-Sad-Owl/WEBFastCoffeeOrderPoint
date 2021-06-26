@@ -18,6 +18,16 @@ public class Coffee implements Serializable {
 
     public Coffee(){}
 
+    public Coffee(CoffeeType type, String description, double coast, String imgPath, CoffeeSize size, List<Ingredient> ingredients, List<Ingredient> decorations) {
+        this.type = type;
+        this.description = description;
+        this.coast = coast;
+        this.imgPath = imgPath;
+        this.size = size;
+        this.ingredients = ingredients;
+        this.decorations = decorations;
+    }
+
     public Coffee(CoffeeType type, String description, double coast, String imgPath) {
             this.type = type;
         this.description = description;

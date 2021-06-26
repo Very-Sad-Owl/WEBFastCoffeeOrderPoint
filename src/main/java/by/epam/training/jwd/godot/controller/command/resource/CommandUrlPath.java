@@ -16,6 +16,7 @@ public interface CommandUrlPath {
     String RECEPITS_MANAGER_PAGE = "jsp/admin/recepits_management/recepits_manager.jsp";
     String CHECK_ORER_PAGE = "jsp/user/check_order.jsp";
     String ORDER_MANAGEMENT = "jsp/admin/order_management/order_management.jsp";
+    String ORDER_ARCHIVE = "jsp/admin/order_archive/order_archive.jsp";
 
     String GOTOINDEXPAGE_WITH_MSG = "Controller?command=gotoindexpage&message=%S";
     String GOTOINDEXPAGE = "Controller?command=gotoindexpage";

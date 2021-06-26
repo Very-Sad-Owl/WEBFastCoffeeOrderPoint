@@ -47,7 +47,7 @@
         </thead>
         <tbody>
         <c:forEach var="n" items="${requestScope.cart.positions}" varStatus="loop">
-            <input type="hidden" name="uid" class="pos_uid" value="v">
+            <input type="hidden" name="uid" class="pos_uid">
             <tr id="${n.beverage.type}">
                 <td>
                     <img src="${'../'}${n.beverage.imgPath}" alt="${n.beverage.type}"/>
@@ -56,11 +56,11 @@
                 <td id="volume">${n.beverage.size.volume}</td>
                 <td id="coast">${n.coast}</td>
                 <td>
-                    <input name="amount" type="number" step="1" min="1" max="10">
+                    <input name="amount" type="number" step="1" min="1" max="10" value="1">
                 </td>
                 <td>
-                    <c:forEach var="n" items="${n.beverage.decorations}" varStatus="loop">
-                        ${n.title}${' x'}${n.quantity}${' '}
+                    <c:forEach var="m" items="${n.beverage.decorations}" varStatus="loop">
+                        ${m.title}${' x'}${m.quantity}${' '}
                     </c:forEach>
                 </td>
                 <th>

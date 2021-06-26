@@ -8,18 +8,15 @@ import by.epam.training.jwd.godot.dao.connection.ConnectionProvider;
 import by.epam.training.jwd.godot.dao.connection.ecxeption.ConnectionPoolException;
 import by.epam.training.jwd.godot.dao.exception.DAOException;
 import by.epam.training.jwd.godot.dao.util.IngredientDataConverter;
-import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static by.epam.training.jwd.godot.dao.constant.CoffeeTable.*;
+import static by.epam.training.jwd.godot.dao.constant.table_column.CoffeeTable.*;
 import static by.epam.training.jwd.godot.dao.constant.SQLQuery.*;
 
 public class CoffeeDaoImpl implements CoffeeDao {
-
-    private static final Logger LOGGER = Logger.getLogger(CoffeeDaoImpl.class);
 
     @Override
     public List<Coffee> getAllBeverages() throws DAOException {
@@ -40,7 +37,7 @@ public class CoffeeDaoImpl implements CoffeeDao {
             while(rs.next()) {
                 String type = rs.getString(TYPE).toUpperCase();
                 String imgPath = rs.getString(IMG);
-                double rawPrice = rs.getDouble("coast");
+                double rawPrice = rs.getDouble(COFFEE_TYPE_COAST);
                 Coffee coffee = new Coffee(CoffeeType.valueOf(type), rawPrice, CoffeeType.valueOf(type).toString(), imgPath);
 
                 List<Ingredient> compos = getBeverageIngredients(type);
@@ -58,6 +55,7 @@ public class CoffeeDaoImpl implements CoffeeDao {
         return all;
     }
 
+    @Override
     public List<Ingredient> getBeverageIngredients(String bevTitle) throws DAOException {
         Statement st = null;
         ResultSet rs = null;
@@ -73,7 +71,7 @@ public class CoffeeDaoImpl implements CoffeeDao {
             rs = st.executeQuery(String.format(GET_BEVERAGE_INGREDIENTS, bevTitle));
 
             while(rs.next()) {
-               Ingredient ingredient = new IngredientDataConverter().retrieveFromResultSet(rs);
+               Ingredient ingredient = new IngredientDataConverter().retrieveEmptyFromJoinQueryResultSet(rs);
                ingredients.add(ingredient);
 
             }
@@ -304,45 +302,4 @@ public class CoffeeDaoImpl implements CoffeeDao {
         return res;
     }
 
-    @Override
-    public List<Coffee> getAllRecepits() throws DAOException {
-//        PreparedStatement st = null;
-//        ResultSet rs = null;
-//        ConnectionPool pool = null;
-//        Connection con = null;
-//
-//        List<Coffee> all = new ArrayList<>();
-//
-//        try {
-//            pool = ConnectionProvider.getConnectionPool();
-//            con = pool.takeConnection();
-//            st = con.prepareStatement(GET_ALL_RECEPITS);
-//            rs = st.executeQuery(String.format(GET_ALL_QUERY,
-//                    COFFEE_TYPES_TABLE));
-//
-//            String previousType = null;
-//            while(rs.next()) {
-//                String type = rs.getString("coffee_title");
-//                if (previousType == null || !previousType.equals(type)) {
-//                    previousType = type;
-//                    String imgPath = rs.getString("coffee_img");
-//                    Coffee coffee = new Coffee(CoffeeType.valueOf(type), CoffeeType.valueOf(type).toString(), imgPath);
-//                    coffee.setCoast(calculateCoast(coffee.getType().toString()));
-//                }
-//
-//                List<Ingredient> compos = getBeverageIngredients(type);
-//                coffee.setIngredients(compos);
-//
-//                all.add(coffee);
-//            }
-//        } catch (SQLException | ConnectionPoolException e) {
-//            throw new DAOException(e);
-//        } finally {
-//            if (pool != null) {
-//                pool.closeConnection(con, st, rs);
-//            }
-//        }
-//        return all;
-        return new ArrayList<>();
-    }
 }

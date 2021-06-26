@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface CoffeeDao {
     List<Coffee> getAllBeverages() throws DAOException;
+
+    List<Ingredient> getBeverageIngredients(String bevTitle) throws DAOException;
+
     List<Coffee> getAvailableBeverages() throws DAOException;
     List<Ingredient> getDecorators(SeasonType seasonType) throws DAOException;
     List<CoffeeSize> getCoffeeTypeSizes(CoffeeType type) throws DAOException;
@@ -16,5 +19,4 @@ public interface CoffeeDao {
     boolean deleteIngredient(String title) throws DAOException;
     boolean updateIngredient(Ingredient ingredient, String originalTitle) throws DAOException;
     boolean addIngredient(Ingredient ingredient) throws DAOException;
-    List<Coffee> getAllRecepits() throws DAOException;
 }

@@ -31,9 +31,7 @@ public class GoToProfilePage implements Command {
             LOGGER.info( service.getInProcessOrders(-1) + "\n");
         } catch (ServiceException e) {
             LOGGER.error(e.getMessage());
-            response.sendRedirect(GOTOERRORPAGE);
         }
-
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(CommandUrlPath.PROFILE_PAGE);
         requestDispatcher.forward(request, response);
 

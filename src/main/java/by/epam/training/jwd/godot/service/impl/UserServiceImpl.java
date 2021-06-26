@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService {
 		UserDao userDAO = provider.getUserDao();
 
 		try {
+			checkEmailBanned(regInfo);
 			if (userDAO.retrieveUser(regInfo.getLogin()) != null){
 				throw new ReservedLoginException("This login already exists");
 			}
@@ -138,5 +139,46 @@ public class UserServiceImpl implements UserService {
 			throw new ServiceException("User retrieving in error.", e);
 		}
 		return user;
+	}
+
+	@Override
+	public void checkEmailBanned(RegistrationInfo info) throws ServiceException {
+		DaoProvider provider = DaoProvider.getInstance();
+		UserDao userDAO = provider.getUserDao();
+
+		try {
+			boolean res = userDAO.checkBanned(info);
+			if (res){
+				throw new BannedEmailException("this email has been banned");
+			}
+		}catch(DAOException e) {
+			throw new ServiceException("User retrieving in error.", e);
+		}
+	}
+
+	@Override
+	public User retrieveUser(String email, String hash) throws ServiceException {
+		DaoProvider provider = DaoProvider.getInstance();
+		UserDao userDAO = provider.getUserDao();
+
+		User user;
+		try {
+			user = userDAO.retrieveUser(email, hash);
+		}catch(DAOException e) {
+			throw new ServiceException("User retrieving in error.", e);
+		}
+		return user;
+	}
+
+	@Override
+	public void activateAccount(User user) throws ServiceException {
+		DaoProvider provider = DaoProvider.getInstance();
+		UserDao userDAO = provider.getUserDao();
+
+		try {
+			userDAO.activateAccount(user);
+		}catch(DAOException e) {
+			throw new ServiceException("Account verification in error.", e);
+		}
 	}
 }

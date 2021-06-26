@@ -2,19 +2,16 @@ package by.epam.training.jwd.godot.dao.util;
 
 import by.epam.training.jwd.godot.bean.delivery_point.Address;
 import by.epam.training.jwd.godot.bean.delivery_point.Spot;
-import by.epam.training.jwd.godot.bean.user.User;
-import by.epam.training.jwd.godot.bean.user.UserRole;
-import by.epam.training.jwd.godot.dao.constant.AddressTable;
-import by.epam.training.jwd.godot.dao.constant.CoveredCitiesTable;
-import by.epam.training.jwd.godot.dao.constant.CoveredRegionsTable;
+import by.epam.training.jwd.godot.dao.constant.table_column.AddressTable;
+import by.epam.training.jwd.godot.dao.constant.table_column.CoveredCitiesTable;
+import by.epam.training.jwd.godot.dao.constant.table_column.CoveredRegionsTable;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static by.epam.training.jwd.godot.dao.constant.AddressTable.ID;
-import static by.epam.training.jwd.godot.dao.constant.CoffespotTable.BALANCE;
-import static by.epam.training.jwd.godot.dao.constant.CoffespotTable.RATING;
-import static by.epam.training.jwd.godot.dao.constant.UserTable.*;
+import static by.epam.training.jwd.godot.dao.constant.table_column.AddressTable.ID;
+import static by.epam.training.jwd.godot.dao.constant.table_column.CoffespotTable.BALANCE;
+import static by.epam.training.jwd.godot.dao.constant.table_column.CoffespotTable.RATING;
 
 public class SpotDataConverter {
 

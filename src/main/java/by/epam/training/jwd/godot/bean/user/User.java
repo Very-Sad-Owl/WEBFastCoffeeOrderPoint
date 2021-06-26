@@ -10,25 +10,25 @@ public class User implements Serializable {
     private String login;
     private String password;
     private String email;
-    private double balance;
     private UserRole role;
     private String imgPath;
+    private String hashPassword;
 
     public User(){}
 
-    public User(String login, String password, String email, double balance, UserRole role) {
-        this.login = login;
-        this.password = password;
-        this.email = email;
-        this.balance = balance;
-        this.role = role;
-    }
+//    public User(String login, String password, String email, String hashPassword, UserRole role) {
+//        this.login = login;
+//        this.password = password;
+//        this.email = email;
+//        this.hashPassword = hashPassword;
+//        this.role = role;
+//    }
 
-    public User(String login, String password, String email, double balance, UserRole role, String imgPath) {
+    public User(String login, String password, String email, String hashPassword, UserRole role, String imgPath) {
         this.login = login;
         this.password = password;
         this.email = email;
-        this.balance = balance;
+        this.hashPassword = hashPassword;
         this.role = role;
         this.imgPath = imgPath;
     }
@@ -61,12 +61,12 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public double getBalance() {
-        return balance;
+    public String getHashPassword() {
+        return hashPassword;
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
+    public void setHashPassword(String hashPassword) {
+        this.hashPassword = hashPassword;
     }
 
     public UserRole getRole() {
@@ -90,17 +90,17 @@ public class User implements Serializable {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return Double.compare(user.getBalance(), getBalance()) == 0 &&
-                Objects.equals(getLogin(), user.getLogin()) &&
+        return Objects.equals(getLogin(), user.getLogin()) &&
                 Objects.equals(getPassword(), user.getPassword()) &&
                 Objects.equals(getEmail(), user.getEmail()) &&
                 getRole() == user.getRole() &&
-                Objects.equals(getImgPath(), user.getImgPath());
+                Objects.equals(getImgPath(), user.getImgPath()) &&
+                Objects.equals(getHashPassword(), user.getHashPassword());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getLogin(), getPassword(), getEmail(), getBalance(), getRole(), getImgPath());
+        return Objects.hash(getLogin(), getPassword(), getEmail(), getRole(), getImgPath(), getHashPassword());
     }
 
     @Override
@@ -109,9 +109,9 @@ public class User implements Serializable {
                 "login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", balance=" + balance +
                 ", role=" + role +
                 ", imgPath='" + imgPath + '\'' +
+                ", hashPassword='" + hashPassword + '\'' +
                 '}';
     }
 }

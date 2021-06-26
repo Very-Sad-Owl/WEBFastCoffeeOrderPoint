@@ -97,12 +97,16 @@ public class ConnectionPool {
              LOGGER.error("Connection isn't return to the pool.");
         }
         try {
-            rs.close();
+            if (rs != null) {
+                rs.close();
+            }
         } catch (SQLException e) {
             LOGGER.error("ResultSet isn't closed.");
         }
         try {
-            st.close();
+            if (st != null) {
+                st.close();
+            }
         } catch (SQLException e) {
             LOGGER.error("Statement isn't closed.");
         }
@@ -114,7 +118,9 @@ public class ConnectionPool {
             LOGGER.error("Connection isn't return to the pool.");
         }
         try {
-            st.close();
+            if (st != null) {
+                st.close();
+            }
         } catch (SQLException e) {
             LOGGER.error("Statement isn't closed.");
         }

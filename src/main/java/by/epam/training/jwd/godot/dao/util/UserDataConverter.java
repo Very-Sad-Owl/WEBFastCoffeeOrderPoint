@@ -6,8 +6,8 @@ import by.epam.training.jwd.godot.bean.user.UserRole;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static by.epam.training.jwd.godot.dao.constant.UserTable.*;
-import static by.epam.training.jwd.godot.dao.constant.UserTable.USER_IMG;
+import static by.epam.training.jwd.godot.dao.constant.table_column.UserTable.*;
+import static by.epam.training.jwd.godot.dao.constant.table_column.UserTable.USER_IMG;
 
 public class UserDataConverter {
 
@@ -16,11 +16,11 @@ public class UserDataConverter {
             String foundLogin = rs.getString(LOGIN_COL);
             String foundPassword = rs.getString(PASSWORD_COL);
             String foundEmail = rs.getString(EMAIL_COL);
-            double foundBalance = rs.getDouble(BALANCE_COL);
+            String foundHash = rs.getString(HASH_PASSWORD_COL);
             UserRole foundRole = UserRole.valueOf(rs.getString(USER_ROLE).toUpperCase());
             String avatar = rs.getString(USER_IMG);
 
-            return new User(foundLogin, foundPassword, foundEmail, foundBalance, foundRole, avatar);
+            return new User(foundLogin, foundPassword, foundEmail, foundHash, foundRole, avatar);
 
 
     }

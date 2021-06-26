@@ -36,6 +36,8 @@ public class CommandProvider {
 		commands.put(CommandName.GOTOCHECKORDER, new GoToCheckOrderPage());
 		commands.put(CommandName.GOTOMANAGEORDERS, new GoToManageOrders());
 		commands.put(CommandName.MANAGEORDERS, new OrdersManager());
+		commands.put(CommandName.GOTOORDERARCHIVEPAGE, new GoToOrdersArchivePage());
+		commands.put(CommandName.VERIFY, new Verification());
 	}
 
 	

@@ -27,11 +27,19 @@
         <label for="ingr_title"><fmt:message bundle="${loc}" key="locale.title"/></label>
         <input id = "ingr_title" type="text" name="title" placeholder="ingr_title"/>
 
-        <label for="ingr_type"><fmt:message bundle="${loc}" key="locale.type"/></label>
-        <input id = "ingr_type" type="text" name="ingr_type" placeholder="ingr_type"/>
+        <label for="ingr_type">Ingredient type</label>
+        <select name="ingr_type" id="ingr_type" required>
+            <c:forEach items="${requestScope.ingredient_types}" var="n">
+                <option value="${n}">${n}</option>
+            </c:forEach>
+        </select>
 
-        <label for="ingr_season_type"><fmt:message bundle="${loc}" key="locale.season"/></label>
-		<input id = "ingr_season_type" type="text" name="season_type" placeholder="season_type"/>
+        <label for="ingr_season_type">For season</label>
+        <select name="season_type" id="ingr_season_type" required>
+            <c:forEach items="${requestScope.season_types}" var="n">
+                <option value="${n}">${n}</option>
+            </c:forEach>
+        </select>
 
         <label for="ingr_price"><fmt:message bundle="${loc}" key="locale.coast"/></label>
 		<input id = "ingr_price" type="number" step="0.01" name="price" placeholder="coast" />

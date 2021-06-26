@@ -40,7 +40,6 @@ public class GoToManageOrders implements Command {
             request.setAttribute(AVAILABLE_SPOTS, spotsService.getAll());
         } catch (ServiceException e) {
             LOGGER.error(e.getMessage());
-            response.sendRedirect(GOTOERRORPAGE);
         }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(CommandUrlPath.ORDER_MANAGEMENT);
         requestDispatcher.forward(request, response);

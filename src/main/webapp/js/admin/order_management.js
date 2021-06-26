@@ -62,17 +62,22 @@ function acceptForgotten(uid) {
 }
 
 function changeSpot(selected) {
-    console.log("changespot 1");
-    $.ajax({
-        type : "GET",
-        url : 'Controller?command=manageorders&action=changespot&uid='+selected.value,
-        success : function(response) {
-            console.log("changespot 2");
-            location.reload();
-        },
-        error: function(response){
-            alert('request failed');
+
+    var table = document.getElementById('inprocess_orders_table');
+    var targetTDs = table.querySelectorAll('tr');
+
+
+    for (var i = 0; i < targetTDs.length; i++) {
+        var td = targetTDs[i];
+        if (!td.classList.contains("header")) {
+            td.hidden = false;
+            if (!td.classList.contains(selected.value)) {
+                td.hidden = true;
+            } else {
+                td.hidden = false;
+            }
         }
-    });
+        console.log(td.innerHTML);
+    }
 }
 

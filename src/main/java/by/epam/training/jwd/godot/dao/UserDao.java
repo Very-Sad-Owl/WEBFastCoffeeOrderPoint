@@ -18,5 +18,8 @@ public interface UserDao {
 	boolean changeAvatar(String login, String imgPath) throws DAOException;
 	boolean changeUserContacts(String login, String newEmail, String password) throws DAOException;
 	User retrieveUser(String login) throws DAOException;
+	User retrieveUser(String login, String hash) throws DAOException;
+	boolean checkBanned(RegistrationInfo info) throws DAOException;
+	void activateAccount(User user) throws DAOException;
 	
 }

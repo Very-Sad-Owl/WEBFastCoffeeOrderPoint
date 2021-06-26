@@ -16,14 +16,15 @@
 <table class="styled-table">
     <thead>
     <tr>
-
+        <td>id</td>
+        <td>balance</td>
     </tr>
     </thead>
     <tbody>
     <c:forEach var="n" items="${requestScope.spots}" varStatus="loop">
         <tr id="${n.uid}">
             <c:if test="${pageContext.request.locale.language == 'en' || pageContext.request.locale.language == null}">
-                <td>${n.rating}</td>
+                <td>${n.uid}</td>
                 <td>${n.balance}</td>
                 <td>${n.address.region}</td>
                 <td>${n.address.city}</td>
@@ -31,7 +32,7 @@
                 <td>${n.address.house}</td>
             </c:if>
             <c:if test="${pageContext.request.locale.language == 'ru'}">
-                <td>${n.rating}</td>
+                <td>${n.uid}</td>
                 <td>${n.balance}</td>
                 <td>${n.address.regionRu}</td>
                 <td>${n.address.cityRu}</td>

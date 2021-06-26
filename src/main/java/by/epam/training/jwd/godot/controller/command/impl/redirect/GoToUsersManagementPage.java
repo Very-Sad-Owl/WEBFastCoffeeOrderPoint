@@ -32,7 +32,6 @@ public class GoToUsersManagementPage implements Command {
             request.setAttribute(USERS_LIST, users);
         } catch (ServiceException e) {
             LOGGER.error(e);
-            response.sendRedirect(GOTOERRORPAGE);
         }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(CommandUrlPath.USERS_MANAGE_PAGE);
         requestDispatcher.forward(request, response);

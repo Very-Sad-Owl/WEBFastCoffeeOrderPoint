@@ -54,7 +54,7 @@ public class SpotsManager implements Command {
                     service.updateSpot(region, regionRu, city, cityRu, street, streetRu, house, uid);
                 } catch (ServiceException e) {
                     response.getWriter().print(msgProvider.getMessage(e.getClass().getSimpleName()));
-                    LOGGER.warn("spot address hasn't been updated!\n");
+                    LOGGER.warn(e);
                 }
                 break;
             }
@@ -72,7 +72,7 @@ public class SpotsManager implements Command {
                     service.addSpot(region, regionRu, city, cityRu, street, streetRu, house);
                 } catch (ServiceException e) {
                     response.getWriter().print(msgProvider.getMessage(e.getClass().getSimpleName()));
-                    LOGGER.warn("spot address hasn't been added!\n");
+                    LOGGER.warn(e);
                 }
                 break;
             }

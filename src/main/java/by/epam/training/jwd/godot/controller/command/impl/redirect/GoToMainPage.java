@@ -3,6 +3,7 @@ package by.epam.training.jwd.godot.controller.command.impl.redirect;
 import by.epam.training.jwd.godot.bean.coffee.Coffee;
 import by.epam.training.jwd.godot.controller.command.Command;
 import by.epam.training.jwd.godot.controller.command.resource.CommandUrlPath;
+import by.epam.training.jwd.godot.controller.command.resource.RequestParam;
 import by.epam.training.jwd.godot.controller.command.resource.SessionAttr;
 import by.epam.training.jwd.godot.service.CoffeeService;
 import by.epam.training.jwd.godot.service.ServiceProvider;
@@ -27,6 +28,7 @@ public class GoToMainPage implements Command {
 
 		ServiceProvider provider = ServiceProvider.getInstance();
 		CoffeeService service = provider.getCoffeeService();
+		String message = request.getParameter(RequestParam.MESSAGE);
 		try {
 			List<Coffee> allCoffee = service.getAllCoffee();
 			request.setAttribute("coffee", allCoffee);
@@ -34,9 +36,7 @@ public class GoToMainPage implements Command {
 			LOGGER.info("retrieved: " + allCoffee.size() + "\n");
 		} catch (ServiceException e) {
 			LOGGER.error(e);
-			response.sendRedirect(GOTOERRORPAGE);
 		}
-
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(CommandUrlPath.MAINPAGE);
 		requestDispatcher.forward(request, response);
 

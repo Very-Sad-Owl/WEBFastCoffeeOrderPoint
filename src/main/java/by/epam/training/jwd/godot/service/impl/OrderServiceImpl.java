@@ -25,7 +25,7 @@ public class OrderServiceImpl implements OrderService {
         OrderDao dao = provider.getOrderDao();
 
         try {
-            dao.addOrderPosition(position, user);
+            dao.addOrderPosition(position, user.getLogin());
         } catch (DAOException e) {
             throw new InsertionException("Order position insertion has failed");
         }
@@ -87,6 +87,18 @@ public class OrderServiceImpl implements OrderService {
             return dao.getInProcessOrders(spotUid);
         } catch (DAOException e) {
             throw new RetrievingException("cannot retrieve in-process order data");
+        }
+    }
+
+    @Override
+    public List<Order> getOrders() throws ServiceException {
+        DaoProvider provider = DaoProvider.getInstance();
+        OrderDao dao = provider.getOrderDao();
+
+        try {
+            return dao.getOrders();
+        } catch (DAOException e) {
+            throw new RetrievingException("cannot retrieve orders data");
         }
     }
 

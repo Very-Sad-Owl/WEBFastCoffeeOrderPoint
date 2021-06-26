@@ -1,41 +1,21 @@
 /* The popup form - hidden by default */
-.h1{
-    padding: 50px;
+h1{
+
+    alignment: center;
 }
 
-.label{
+label, input {
+    display: block;
+}
+
+label {
+    margin-bottom: 20px;
+}
+
+.edit_ingredient_popup, .add_ingredient_popup{
     display:block;
 }
 
-/*.edit_ingredient_popup {*/
-    /*display: none;*/
-    /*position: fixed;*/
-    /*top: 50%;*/
-    /*left: 50%;*/
-    /*width: 600px;*/
-    /*height: 600px;*/
-    /*margin-top: -300px;*/
-    /*margin-left: -300px;*/
-    /*border: 3px solid #f1f1f1;*/
-    /*z-index: 1;*/
-    /*overflow: auto;*/
-/*}*/
-
-/*.add_ingredient_popup {*/
-    /*display: none;*/
-    /*position: fixed;*/
-    /*top: 50%;*/
-    /*left: 50%;*/
-    /*width: 600px;*/
-    /*height: 600px;*/
-    /*margin-top: -300px;*/
-    /*margin-left: -300px;*/
-    /*border: 3px solid #f1f1f1;*/
-    /*z-index: 1;*/
-    /*overflow: auto;*/
-/*}*/
-
-/* Add styles to the form container */
 .edit_ingredient{
     max-width: 600px;
     max-height: 600px;
@@ -51,14 +31,7 @@
 }
 
 /* Full-width input fields */
-.edit_ingredient input[type=text], .form-container input[type=text] .form-container input[type=number], .ingr_type {
-    width: 100%;
-    padding: 15px;
-    margin: 5px 0 22px 0;
-    border: none;
-    background: #f1f1f1;
-}
-.add_ingredient input[type=text], .form-container input[type=text] .form-container input[type=number], .ingr_type {
+input[type=text], input[type=number], select {
     width: 100%;
     padding: 15px;
     margin: 5px 0 22px 0;
@@ -66,12 +39,13 @@
     background: #f1f1f1;
 }
 
+
 /* When the inputs get focus, do something */
-.edit_ingredient input[type=text]:focus, .form-container input[type=text]:focus,.ingr_type {
+input[type=text]:focus {
     background-color: #ddd;
     outline: none;
 }
-.add_ingredient input[type=text]:focus, .form-container input[type=text]:focus, .ingr_type {
+input[type=text]:focus{
     background-color: #ddd;
     outline: none;
 }

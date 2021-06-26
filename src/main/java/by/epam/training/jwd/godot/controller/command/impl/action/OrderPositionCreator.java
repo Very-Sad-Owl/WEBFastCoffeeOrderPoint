@@ -40,7 +40,7 @@ public class OrderPositionCreator implements Command {
 
         String action = request.getParameter(ACTION);
         switch (action){
-            case "choose":
+            case CHOOSE_ACTION:
                 try {
                     int posId = request.getParameter(RequestParam.ID) != null
                             ? Integer.parseInt(request.getParameter(RequestParam.ID)) : 0;

@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static by.epam.training.jwd.godot.controller.command.resource.CommandUrlPath.GOTOERRORPAGE;
+import static by.epam.training.jwd.godot.controller.command.resource.RequestParam.*;
 
 public class GoToBuyIngredientsPage implements Command {
 
@@ -24,20 +25,18 @@ public class GoToBuyIngredientsPage implements Command {
 
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String uid = request.getParameter("uid");
-        LOGGER.info("uid " + uid + "\n");
+        String uid = request.getParameter(UID);
         ServiceProvider provider = ServiceProvider.getInstance();
         SpotsService service = provider.getSpotsService();
         CoffeeService coffeeService = provider.getCoffeeService();
         try {
             List<Ingredient> ingredients = service.getSpotIngredients(Integer.parseInt(uid));
             List<Ingredient> allIngredients = coffeeService.getAllIngredients();
-            request.setAttribute("ingredients", ingredients);
-            request.setAttribute("all_ingredients", allIngredients);
-            request.setAttribute("uid", uid);
+            request.setAttribute(INGREDIENTS, ingredients);
+            request.setAttribute(ALL_INGREDIENTS, allIngredients);
+            request.setAttribute(UID, uid);
         } catch (ServiceException e) {
             LOGGER.error(e);
-            response.sendRedirect(GOTOERRORPAGE);
         }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(CommandUrlPath.BUY_INGREDINTS);
         requestDispatcher.forward(request, response);

@@ -13,12 +13,13 @@
 <script type="text/javascript" src="../../../js/scripts.js"></script>
 <script type="text/javascript" src="../../../js/admin/order_management.js"></script>
 <link rel='stylesheet' href='../../../css/table_style.css' type='text/css' media='all'/>
+<%@ taglib prefix = "addr" uri = "/WEB-INF/addressLineTag.tld"%>
 <fmt:setLocale value="${sessionScope.locale == null ? 'en' : sessionScope.locale}"/>
 <fmt:setBundle basename="locale" var="loc"/>
 
-<table class="styled-table">
+<table class="styled-table" id = "inprocess_orders_table">
     <thead>
-    <tr>
+    <tr class="header">
         <td>uid</td>
         <td>To pay</td>
         <td>Payment Method</td>
@@ -29,7 +30,7 @@
     </thead>
     <tbody>
     <c:forEach var="n" items="${requestScope.orders}" varStatus="loop">
-        <tr id="${n.uid}">
+        <tr id="${n.uid}" class = "${n.address.uid}">
 
                 <td>${n.uid}</td>
                 <td>${n.coast}</td>

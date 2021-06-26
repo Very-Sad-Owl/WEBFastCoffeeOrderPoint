@@ -36,7 +36,8 @@ body{
 
 .wrapper .change_img img{
     border-radius: 5px;
-    margin-bottom: 10px;
+    width: 90%;
+    height: auto;
 }
 
 .wrapper .left h4{

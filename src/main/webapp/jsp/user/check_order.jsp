@@ -33,7 +33,7 @@
     <div class = "order_info">
         <p>${'status'}${' - '}<span id = "status"></span></p>
         <p>${'date'}${' - '}<span id = "date"></span></p>
-        <p>${'delivery pont'}${' - '}<span id = "delivery_point"></span></p>
+        <p>${'delivery point'}${' - '}<span id = "delivery_point"></span></p>
         <p>${'price'}${' - '}<span id = "price"></span></p>
     </div>
 </body>

@@ -8,6 +8,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="/WEB-INF/addressLineTag.tld" prefix="addr"%>
 <link rel='stylesheet' href='../../../css/common/language_switcher_style.css' type='text/css' media='all'/>
 <script src="http://code.jquery.com/jquery-2.2.4.js"
         type="text/javascript"></script>
@@ -23,18 +24,20 @@
 <body>
     <jsp:include page="../../common/language_switcher.jsp"/>
 
+    <label for="spots"><fmt:message bundle="${loc}" key="locale.delivery.point"/></label>
     <select id="spots" name="spots" onchange="changeSpot(this)">
+        <option value="-1" selected>
+            All
+        </option>
         <c:forEach var="n" items="${requestScope.spots}" varStatus="loop">
             <c:if test="${sessionScope.locale == 'en' || sessionScope.locale == null}">
                 <option value="${n.uid}" selected>${n.address}>
-                        ${n.address.region}${', '}${n.address.city}${', '}${n.address.street}
-                        ${', '}${n.address.city}${', '}${n.address.house}
+                    <addr:address message = "${n}" locale="en"/>
                 </option>
             </c:if>
             <c:if test="${sessionScope.locale == 'ru'}">
                 <option value="${n.uid}" selected>${n.address}>
-                    ${n.address.regionRu}${', '}${n.address.cityRu}${', '}${n.address.streetRu}
-                    ${', '}${n.address.cityRu}${', '}${n.address.house}
+                    <addr:address message = "${n}" locale="ru"/>
                 </option>
             </c:if>
             <%--<c:if test="${requestScope.uid == n.uid}">--%>

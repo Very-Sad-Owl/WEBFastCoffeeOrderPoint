@@ -4,23 +4,20 @@ import by.epam.training.jwd.godot.bean.coffee.Coffee;
 import by.epam.training.jwd.godot.bean.coffee.CoffeeSize;
 import by.epam.training.jwd.godot.bean.coffee.CoffeeType;
 import by.epam.training.jwd.godot.bean.coffee.Ingredient;
-import by.epam.training.jwd.godot.bean.delivery_point.Address;
 import by.epam.training.jwd.godot.bean.delivery_point.Spot;
 import by.epam.training.jwd.godot.bean.order_element.Order;
 import by.epam.training.jwd.godot.bean.order_element.OrderPotition;
 import by.epam.training.jwd.godot.bean.order_element.OrderStatus;
 import by.epam.training.jwd.godot.bean.order_element.PaymentMethod;
 import by.epam.training.jwd.godot.bean.user.User;
-import by.epam.training.jwd.godot.bean.user.UserRole;
 import by.epam.training.jwd.godot.dao.OrderDao;
 import by.epam.training.jwd.godot.dao.connection.ConnectionPool;
 import by.epam.training.jwd.godot.dao.connection.ConnectionProvider;
 import by.epam.training.jwd.godot.dao.connection.ecxeption.ConnectionPoolException;
-import by.epam.training.jwd.godot.dao.constant.AddressTable;
-import by.epam.training.jwd.godot.dao.constant.CoveredCitiesTable;
-import by.epam.training.jwd.godot.dao.constant.CoveredRegionsTable;
+import by.epam.training.jwd.godot.dao.constant.table_column.OrderTable;
 import by.epam.training.jwd.godot.dao.exception.DAOException;
 import by.epam.training.jwd.godot.dao.util.IngredientDataConverter;
+import by.epam.training.jwd.godot.dao.util.OrderDataConverter;
 import by.epam.training.jwd.godot.dao.util.SpotDataConverter;
 import by.epam.training.jwd.godot.dao.util.UserDataConverter;
 import org.apache.log4j.Logger;
@@ -31,18 +28,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static by.epam.training.jwd.godot.dao.constant.AddressTable.ID;
-import static by.epam.training.jwd.godot.dao.constant.CoffeeTable.*;
-import static by.epam.training.jwd.godot.dao.constant.CoffespotTable.*;
+import static by.epam.training.jwd.godot.dao.constant.table_column.CoffeeTable.*;
+import static by.epam.training.jwd.godot.dao.constant.table_column.OrderPositions.AMOUNT;
 import static by.epam.training.jwd.godot.dao.constant.SQLQuery.*;
-import static by.epam.training.jwd.godot.dao.constant.UserTable.*;
+import static by.epam.training.jwd.godot.dao.constant.table_column.OrderTable.*;
 
 public class OrderDaoImpl implements OrderDao {
 
     private static final Logger LOGGER = Logger.getLogger(OrderDaoImpl.class);
 
     @Override
-    public void addOrderPosition(Coffee position, User user) throws DAOException {
+    public void addOrderPosition(Coffee position, String login) throws DAOException {
         PreparedStatement ps = null;
         ConnectionPool pool = null;
         Connection con = null;
@@ -56,14 +52,14 @@ public class OrderDaoImpl implements OrderDao {
             con.setAutoCommit(false);
 
             ps = con.prepareStatement(CHECK_ORDER);
-            ps.setString(1, user.getLogin());
+            ps.setString(1, login);
             ps.setString(2, OrderStatus.NEW.toString());
             rs = ps.executeQuery();
             while (rs.next()) {
-                orderId = rs.getLong("id");
+                orderId = rs.getLong(ID);
             }
             if (orderId == 0){
-                orderId = insertEmptyOrder(user.getLogin());
+                orderId = insertEmptyOrder(login);
             }
 
             ps = con.prepareStatement(ADD_POSITION, Statement.RETURN_GENERATED_KEYS);
@@ -148,13 +144,13 @@ public class OrderDaoImpl implements OrderDao {
             rs = ps.executeQuery();
 
             while(rs.next()) {
-                long id = rs.getLong("id");
+                long id = rs.getLong(OrderTable.ID);
                 String type = rs.getString(TYPE).toUpperCase();
                 String imgPath = rs.getString(IMG);
                 String size = rs.getString(SIZE_VOL).toUpperCase();
                 double increment = rs.getDouble(SIZE_INCREMENT);
-                double price = rs.getDouble("price");
-                int amount = rs.getInt("amount");
+                double price = rs.getDouble(PRICE);
+                int amount = rs.getInt(AMOUNT);
 
                 Coffee coffee = new Coffee(CoffeeType.valueOf(type), imgPath, new CoffeeSize(Integer.parseInt(size),increment));
 
@@ -229,42 +225,25 @@ public class OrderDaoImpl implements OrderDao {
             ps.setString(2, user.getLogin());
             rs = ps.executeQuery();
             if (rs.next()) {
-                found.setUid(rs.getLong("id"));
+                found.setUid(rs.getLong(OrderTable.ID));
                 found.setUser(user);
                 found.setStatus(status);
-                found.setCoast(rs.getDouble("price"));
-                found.setEstimatedTime(rs.getInt("estimated_time"));
+                found.setCoast(rs.getDouble(PRICE));
+                found.setEstimatedTime(rs.getInt(ESTIMATED_TIME));
                 if (found.getStatus() != OrderStatus.NEW) {
-                    found.setDate(new Date(rs.getTimestamp("date").getTime()));
+                    found.setDate(new Date(rs.getTimestamp(DATE).getTime()));
                 }
 
                 //for spot
                 Spot spot = null;
                 ps = con.prepareStatement(GET_SPOT);
-                ps.setLong(1, rs.getLong("delivery_point_id"));
+                ps.setLong(1, rs.getLong(DELIVERY_POINT_ID));
                 rs = ps.executeQuery();
                 if(rs.next()) {
-//                    long uid = rs.getLong(ID);
-//                    double balance = rs.getDouble(BALANCE);
-//                    double rating = rs.getDouble(RATING);
-//
-//                    String region = rs.getString(CoveredRegionsTable.REGION);
-//                    String region_ru = rs.getString(CoveredRegionsTable.REGION_RU);
-//                    String city = rs.getString(CoveredCitiesTable.CITY);
-//                    String city_ru = rs.getString(CoveredCitiesTable.CITY_RU);
-//                    String street = rs.getString(AddressTable.STREET);
-//                    String street_ru = rs.getString(AddressTable.STREET_RU);
-//                    String house = rs.getString(AddressTable.HOUSE);
-//                    Address address = new Address(region, region_ru, city, city_ru, street, street_ru, house);
-//
-//                    spot = new Spot(uid, rating, balance, address);
                     spot = new SpotDataConverter().resultSetToSpot(rs);
                 }
-
                 found.setAddress(spot);
-
                 List<OrderPotition> positions = getUserCart(found.getUid());
-
                 found.setPositions(positions);
             }
             return found;
@@ -282,6 +261,10 @@ public class OrderDaoImpl implements OrderDao {
         PreparedStatement ps = null;
         ConnectionPool pool = null;
         Connection con = null;
+
+        if (positions == null){
+            throw new DAOException("null positions data");
+        }
 
         try {
             pool = ConnectionProvider.getConnectionPool();
@@ -345,7 +328,7 @@ public class OrderDaoImpl implements OrderDao {
             ps.setLong(1, uid);
             rs = ps.executeQuery();
             if (rs.next()){
-                status = OrderStatus.valueOf(rs.getString("status").toUpperCase());
+                status = OrderStatus.valueOf(rs.getString(STATUS).toUpperCase());
             }
             return status;
         } catch (SQLException | ConnectionPoolException e) {
@@ -375,31 +358,18 @@ public class OrderDaoImpl implements OrderDao {
                 User user = new UserDataConverter().resultSetToUser(rs);
                 found.setUid(uid);
                 found.setUser(user);
-                found.setStatus(OrderStatus.valueOf(rs.getString("status").toUpperCase()));
-                found.setCoast(rs.getDouble("price"));
-                found.setEstimatedTime(rs.getInt("estimated_time"));
-                found.setDate(new Date(rs.getTimestamp("date").getTime()));
+                found.setStatus(OrderStatus.valueOf(rs.getString(STATUS).toUpperCase()));
+                found.setCoast(rs.getDouble(PRICE));
+                found.setEstimatedTime(rs.getInt(ESTIMATED_TIME));
+                found.setDate(new Date(rs.getTimestamp(DATE).getTime()));
 
                 //for spot
                 Spot spot = null;
                 ps = con.prepareStatement(GET_SPOT);
-                ps.setLong(1, rs.getLong("delivery_point_id"));
+                ps.setLong(1, rs.getLong(DELIVERY_POINT_ID));
                 rs = ps.executeQuery();
                 if(rs.next()) {
-                    long spotUid = rs.getLong(ID);
-                    double balance = rs.getDouble(BALANCE);
-                    double rating = rs.getDouble(RATING);
-
-                    String region = rs.getString(CoveredRegionsTable.REGION);
-                    String region_ru = rs.getString(CoveredRegionsTable.REGION_RU);
-                    String city = rs.getString(CoveredCitiesTable.CITY);
-                    String city_ru = rs.getString(CoveredCitiesTable.CITY_RU);
-                    String street = rs.getString(AddressTable.STREET);
-                    String street_ru = rs.getString(AddressTable.STREET_RU);
-                    String house = rs.getString(AddressTable.HOUSE);
-                    Address address = new Address(region, region_ru, city, city_ru, street, street_ru, house);
-
-                    spot = new Spot(spotUid, rating, balance, address);
+                    spot = new SpotDataConverter().resultSetToSpot(rs);
                 }
 
                 found.setAddress(spot);
@@ -438,45 +408,68 @@ public class OrderDaoImpl implements OrderDao {
             }
             rs = ps.executeQuery();
             while (rs.next()) {
-                Order found = new Order();
-                found.setUid(rs.getLong("id"));
-                found.setStatus(OrderStatus.valueOf(rs.getString("status").toUpperCase()));
-                found.setCoast(rs.getDouble("price"));
-                found.setEstimatedTime(rs.getInt("estimated_time"));
-                found.setDate(new Date(rs.getTimestamp("date").getTime()));
+                Order found = new OrderDataConverter().retrieveFromResultSet(rs);
 
                 //user
-                String foundLogin = rs.getString(LOGIN_COL);
-                String foundPassword = rs.getString(PASSWORD_COL);
-                String foundEmail = rs.getString(EMAIL_COL);
-                double foundBalance = rs.getDouble(BALANCE_COL);
-                UserRole foundRole = UserRole.valueOf(rs.getString(USER_ROLE).toUpperCase());
-                String avatar = rs.getString(USER_IMG);
-
-                User user = new User(foundLogin, foundPassword, foundEmail, foundBalance, foundRole, avatar);
+                User user = new UserDataConverter().resultSetToUser(rs);
 
                 found.setUser(user);
 
                 //for spot
                 Spot spot = null;
                 ps = con.prepareStatement(GET_SPOT);
-                ps.setLong(1, rs.getLong("delivery_point_id"));
+                ps.setLong(1, rs.getLong(DELIVERY_POINT_ID));
                 ResultSet srs = ps.executeQuery();
                 if(srs.next()) {
-                    long uid = srs.getLong(ID);
-                    double balance = srs.getDouble(BALANCE);
-                    double rating = srs.getDouble(RATING);
+                    spot = new SpotDataConverter().resultSetToSpot(srs);
+                }
 
-                    String region = srs.getString(CoveredRegionsTable.REGION);
-                    String region_ru = srs.getString(CoveredRegionsTable.REGION_RU);
-                    String city = srs.getString(CoveredCitiesTable.CITY);
-                    String city_ru = srs.getString(CoveredCitiesTable.CITY_RU);
-                    String street = srs.getString(AddressTable.STREET);
-                    String street_ru = srs.getString(AddressTable.STREET_RU);
-                    String house = srs.getString(AddressTable.HOUSE);
-                    Address address = new Address(region, region_ru, city, city_ru, street, street_ru, house);
+                found.setAddress(spot);
 
-                    spot = new Spot(uid, rating, balance, address);
+                List<OrderPotition> positions = getUserCart(found.getUid());
+
+                found.setPositions(positions);
+                all.add(found);
+            }
+            return all;
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DAOException();
+        }finally {
+            if (pool != null) {
+                pool.closeConnection(con, ps);
+            }
+        }
+    }
+
+    @Override
+    public List<Order> getOrders() throws DAOException {
+        PreparedStatement ps = null;
+        ConnectionPool pool = null;
+        Connection con = null;
+        ResultSet rs = null;
+        List<Order> all = new ArrayList<>();
+
+        try {
+            pool = ConnectionProvider.getConnectionPool();
+            con = pool.takeConnection();
+
+            ps = con.prepareStatement(GET_ORDERS);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Order found = new OrderDataConverter().retrieveFromResultSet(rs);
+
+                //user
+                User user = new UserDataConverter().resultSetToUser(rs);
+
+                found.setUser(user);
+
+                //for spot
+                Spot spot = null;
+                ps = con.prepareStatement(GET_SPOT);
+                ps.setLong(1, rs.getLong(DELIVERY_POINT_ID));
+                ResultSet srs = ps.executeQuery();
+                if (srs.next()) {
+                    spot = new SpotDataConverter().resultSetToSpot(srs);
                 }
 
                 found.setAddress(spot);

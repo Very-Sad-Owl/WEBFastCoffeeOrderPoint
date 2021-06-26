@@ -15,8 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Locale;
 
-import static by.epam.training.jwd.godot.controller.command.resource.RequestParam.ACTION;
-import static by.epam.training.jwd.godot.controller.command.resource.RequestParam.UID;
+import static by.epam.training.jwd.godot.controller.command.resource.RequestParam.*;
 import static by.epam.training.jwd.godot.controller.command.resource.SessionAttr.LOCALE;
 
 public class OrdersManager implements Command {
@@ -34,14 +33,9 @@ public class OrdersManager implements Command {
         long uid = Long.parseLong(request.getParameter(UID));
 
         try {
-            if(action.equals("changespot")){
-                LOGGER.info("Controller?command=gotomanageorders&uid="+uid + "\n");
-                response.sendRedirect("Controller?command=gotomanageorders&uid="+uid);
-            } else {
-                OrderStatus status = OrderStatus.valueOf(action.toUpperCase());
-                service.changeOrderStatus(uid, status);
-                response.sendRedirect(CommandUrlPath.ORDER_MANAGEMENT);
-            }
+            OrderStatus status = OrderStatus.valueOf(action.toUpperCase());
+            service.changeOrderStatus(uid, status);
+            response.sendRedirect(CommandUrlPath.ORDER_MANAGEMENT);
         } catch (ServiceException e) {
             response.getWriter().print(msgProvider.getMessage(e.getClass().getSimpleName()));
             LOGGER.error(e);

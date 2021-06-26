@@ -32,7 +32,6 @@ public class GoToSpotsManagementPage implements Command {
             request.setAttribute(AVAILABLE_SPOTS, spots);
         } catch (ServiceException e) {
             LOGGER.error(e);
-            response.sendRedirect(GOTOERRORPAGE);
         }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(CommandUrlPath.SPOTS_MANAGE_PAGE);
         requestDispatcher.forward(request, response);

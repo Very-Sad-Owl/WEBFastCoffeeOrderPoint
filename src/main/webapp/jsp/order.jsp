@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html;
     charset=utf-8"
-         pageEncoding="utf-8"%>
+    pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <link rel='stylesheet' href='../css/order_style.css' type='text/css' media='all'/>
 
-<fmt:setLocale value = "${sessionScope.locale}"/>
-<fmt:setBundle basename="localization.locale" var="loc"/>
+<fmt:setLocale value = "${sessionScope.locale == null ? 'en' : sessionScope.locale}"/>
+<fmt:setBundle basename="locale" var="loc"/>
 
 <div class="form-popup" id="orderForm">
   <form class="form-container" id = "form-container" onsubmit="return onConfirm(this)">

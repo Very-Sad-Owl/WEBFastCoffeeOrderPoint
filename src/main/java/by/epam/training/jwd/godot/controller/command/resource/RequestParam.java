@@ -3,10 +3,6 @@ package by.epam.training.jwd.godot.controller.command.resource;
 public interface RequestParam {
 
     String UID = "uid";
-    String ID = "id";
-    String LOGIN = "login";
-    String PASSWORD = "password";
-    String EMAIL = "email";
     String ACTION = "action";
     String DELETE_ACTION = "delete";
     String UPDATE_ACTION = "update";
@@ -16,10 +12,15 @@ public interface RequestParam {
     String CHOSEN_LANGUAGE = "language";
     String CHANGE_IMAGE = "upload_img";
     String PREVIOUS_URL = "previousUrl";
+    String MESSAGE = "message";
+    String CHANGE_SPOT = "changespot";
+    String CHOOSE_ACTION = "choose";
 
     //ingredients
+    String ALL_INGREDIENTS = "all_ingredients";
     String INGREDIENT = "ingredient";
-    String INGREDIENTS = "ingredient_list";
+    String INGREDIENT_LIST = "ingredient_list";
+    String INGREDIENTS = "ingredients";
     String INGREDIENT_COLUMNS = "ingredient_columns";
     String INGREDIENT_TITLE = "title";
     String INGREDIENT_PREVIOUS_TITLE = "orig_title";
@@ -31,10 +32,7 @@ public interface RequestParam {
     String INGREDIENT_IMG = "img_path";
     String DECORATION = "decor";
     String DECORATION_AMOUNT = "decor_amount";
-
-    String USER_LOGIN = "login";
-    String USER_EMAIL = "email";
-    String USER_PASSWORD = "password";
+    String SELECTED_INGREDIENTS = "selected";
 
     //order
     String ORDER_UID = "order";
@@ -45,8 +43,13 @@ public interface RequestParam {
     String AVAILABLE_PAYMENT_METHODS = "payment_methods";
     String ESTIMATED_TIME = "estimated_time";
     String BEVERAGE_SIZE = "size";
+    String ORDER_TO_CHECK = "order_to_check";
 
     //user
+    String ID = "id";
+    String LOGIN = "login";
+    String PASSWORD = "password";
+    String EMAIL = "email";
     String USERS_LIST = "users";
     String USER = "user";
 

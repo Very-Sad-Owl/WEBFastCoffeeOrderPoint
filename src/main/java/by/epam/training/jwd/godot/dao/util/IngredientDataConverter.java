@@ -3,7 +3,7 @@ package by.epam.training.jwd.godot.dao.util;
 import by.epam.training.jwd.godot.bean.coffee.IngredientType;
 import by.epam.training.jwd.godot.bean.coffee.SeasonType;
 import by.epam.training.jwd.godot.bean.coffee.Ingredient;
-import by.epam.training.jwd.godot.dao.constant.RecepitsTable;
+import by.epam.training.jwd.godot.dao.constant.table_column.RecepitsTable;
 import org.apache.log4j.Logger;
 
 import java.sql.ResultSet;
@@ -79,10 +79,10 @@ public class IngredientDataConverter {
         Ingredient ingredient = new Ingredient();
         ingredient.setIngredientType(IngredientType.valueOf(ingredientType.toUpperCase()));
         ingredient.setImgPath(img);
-        ingredient.setCoast(price);
         ingredient.setSeasonType(SeasonType.valueOf(seasonType.toUpperCase()));
         ingredient.setTitle(title);
         ingredient.setQuantity(amount);
+        ingredient.setCoast(price * amount);
 
         return ingredient;
     }
