@@ -8,7 +8,7 @@
 <%--<script src="http://code.jquery.com/jquery-2.2.4.js"--%>
         <%--type="text/javascript"></script>--%>
 <%--<script type="text/javascript" src="../js/scripts.js"></script>--%>
-<link href="../css/edit_ingr_popup_style.css" rel="stylesheet" type="text/css">
+<%--<link href="../css/edit_ingr_popup_style.css" rel="stylesheet" type="text/css">--%>
 <link rel='stylesheet' href='../css/ingredient_form_style.css' type='text/css' media='all'/>
 <script type="text/javascript" src="../js/jquery.js"></script>
 <script type="text/javascript" src="../js/scripts.js"></script>
@@ -18,7 +18,7 @@
 <fmt:setBundle basename="locale" var="loc"/>
 
 <div class="edit_ingredient_popup" id = "edit_ingredient_popup">
-  <h1>Edit</h1>
+  <h1> <fmt:message bundle="${loc}" key="locale.edit.btn"/></h1>
     <form class="edit_ingredient" id="edit_ingredient" onsubmit="return onIngredientUpdate(this)">
 
         <input id = "original_ingr_title" name="orig_title" type="hidden"/>

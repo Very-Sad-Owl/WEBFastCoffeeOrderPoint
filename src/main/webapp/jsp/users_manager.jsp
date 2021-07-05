@@ -18,7 +18,7 @@
 </head>
 <body>
     <jsp:include page="../jsp/modal/alert.jsp" />
-    <jsp:include page="common/language_switcher.jsp"/>
+    <jsp:include page="logo.jsp"/>
     <jsp:include page="users_table.jsp"/>
 </body>
 </html>

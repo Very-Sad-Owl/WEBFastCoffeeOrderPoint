@@ -6,6 +6,9 @@ public interface RequestParam {
     String ACTION = "action";
     String DELETE_ACTION = "delete";
     String UPDATE_ACTION = "update";
+    String SEND_PSW_UPDATE_MSG = "send_msg";
+    String RESET_PASSWORD = "send_reset_msg";
+    String APPLY_PASSWORD_UPDATE = "allow_psw_update";
     String ADD_ACTION = "add";
     String BAN_ACTION = "ban";
     String UNBAN_ACTION = "unban";
@@ -15,6 +18,8 @@ public interface RequestParam {
     String MESSAGE = "message";
     String CHANGE_SPOT = "changespot";
     String CHOOSE_ACTION = "choose";
+    String SORTING_OPTION = "sorting_option";
+    String AVAILABLE_BEVERAGES = "coffee";
 
     //ingredients
     String ALL_INGREDIENTS = "all_ingredients";
@@ -25,7 +30,9 @@ public interface RequestParam {
     String INGREDIENT_TITLE = "title";
     String INGREDIENT_PREVIOUS_TITLE = "orig_title";
     String INGREDIENT_TYPE = "ingr_type";
+    String INGREDIENT_TYPES = "ingredient_types";
     String INGREDIENT_SEASON = "season_type";
+    String INGREDIENT_SEASON_TYPES = "season_types";
     String INGREDIENT_PRICE = "price";
     String INGREDIENT_QUANTITY = "quantity";
     String INGREDIENT_AMOUNT = "amount";
@@ -52,6 +59,7 @@ public interface RequestParam {
     String EMAIL = "email";
     String USERS_LIST = "users";
     String USER = "user";
+    String PASSWORD_CONFIRMATION = "password_confirmation";
 
     //point
     String REGION = "region";

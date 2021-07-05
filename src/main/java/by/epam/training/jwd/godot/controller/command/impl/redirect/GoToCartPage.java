@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static by.epam.training.jwd.godot.controller.command.resource.CommandUrlPath.GOTOERRORPAGE;
+import static by.epam.training.jwd.godot.controller.command.resource.RequestParam.*;
 
 public class GoToCartPage implements Command {
 
@@ -32,12 +33,13 @@ public class GoToCartPage implements Command {
         SpotsService spotsService = provider.getSpotsService();
 
         try {
-            Order cart = service.getCartPositions((User) request.getSession().getAttribute("user"));
+            Order cart = service.getCartPositions((User) request.getSession().getAttribute(USER));
             List<PaymentMethod> paymentMethods = Arrays.asList(PaymentMethod.values());
             request.setAttribute("cart", cart);
             request.setAttribute("spots", spotsService.getAll());
             request.setAttribute("payment_methods", paymentMethods);
             LOGGER.info(spotsService.getAll());
+            LOGGER.info(cart);
         } catch (ServiceException e) {
             LOGGER.error(e.getMessage());
             response.sendRedirect(GOTOERRORPAGE);

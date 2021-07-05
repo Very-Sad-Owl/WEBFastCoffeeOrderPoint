@@ -24,7 +24,7 @@
 </head>
 <body>
 <%--<form class = editable_img" onsubmit="return uploadFile(this)">--%>
-
+<jsp:include page="../logo.jsp"/>
 <div class="wrapper">
     <div class="left">
         <form class="change_img" onsubmit="return changeImg(this)">
@@ -38,8 +38,8 @@
         <form class="edit_user" id="edit_user" onsubmit="return onUpdateUser(this)">
             <div class="info">
                 <h3><fmt:message bundle="${loc}" key="locale.information"/></h3>
-                <button class="show show_state" type="button" id="edit_switcher" onclick="onUserButton(this)">
-                    <fmt:message bundle="${loc}" key="locale.edit.profile"/>
+                <button class="show show_state" type="button" id="edit_password" onclick="onUserButton(this)">
+                    <fmt:message bundle="${loc}" key="locale.edit.password"/>
                 </button>
                 <button class="edit edit_state" id="apply_changes" type="submit" hidden>
                     <fmt:message bundle="${loc}" key="locale.save"/>
@@ -49,22 +49,35 @@
                 </button>
             </div>
             <div class="info_data">
+                <%--<div class="data">--%>
+                    <%--<h4 class="edit"><fmt:message bundle="${loc}" key="locale.password.hint"/></h4>--%>
+                    <%--<p class="edit"><input class="edit" type="password" name="password" id="password_edit" hidden></p>--%>
+                    <%--<p class="edit"><input class="edit" type="password" name="password" id="password_edit_confirmation"  hidden></p>--%>
+                <%--</div>--%>
                 <div class="data">
-                    <h4><fmt:message bundle="${loc}" key="locale.login"/></h4>
+                    <h4 class="show"><fmt:message bundle="${loc}" key="locale.login"/></h4>
                     <p class="show">${sessionScope.user.login}</p>
+
+                    <input type="hidden" name="email" value="${sessionScope.user.email}">
+
+                    <h4 class="edit" hidden><fmt:message bundle="${loc}" key="locale.password.hint"/></h4>
+                    <p class="edit"><label class="edit" for="password_edit" hidden >New password:</label>
+                        <input class="edit" type="password" name="password" id="password_edit" hidden>
+                    </p>
+                    <p class="edit"><label class="edit" hidden for="password_edit_confirmation">Confirm password:</label>
+                        <input class="edit" type="password" name="password_confirmation" id="password_edit_confirmation" hidden>
+                    </p>
                 </div>
                 <div class="data">
-                    <h4><fmt:message bundle="${loc}" key="locale.email.hint"/></h4>
+                    <h4 class="show"><fmt:message bundle="${loc}" key="locale.email.hint"/></h4>
                     <p class="show">${sessionScope.user.email}</p>
-                    <input class="edit" type="email" name="email" id="email_edit" value="${sessionScope.user.email}"
-                           hidden>
                 </div>
-                <div class="data">
-                    <h4><fmt:message bundle="${loc}" key="locale.password.hint"/></h4>
-                    <p class="show">${sessionScope.user.password}</p>
-                    <input class="edit" type="text" name="password" id="password_edit"
-                           value="${sessionScope.user.password}" hidden>
-                </div>
+                <%--<div class="data">--%>
+                    <%--<h4><fmt:message bundle="${loc}" key="locale.password.hint"/></h4>--%>
+                    <%--<p class="show">${sessionScope.user.password}</p>--%>
+                    <%--<input class="edit" type="text" name="password" id="password_edit"--%>
+                           <%--value="${sessionScope.user.password}" hidden>--%>
+                <%--</div>--%>
             </div>
         </form>
 

@@ -17,8 +17,9 @@
 <head>
     <title>Cart</title>
 </head>
+<jsp:include page="../logo.jsp"/>
 <body>
-<jsp:include page="../common/language_switcher.jsp"/>
+<%--<jsp:include page="../logo.jsp"/>--%>
 <jsp:include page="cart_table.jsp"/>
 </body>
 </html>

@@ -16,6 +16,7 @@
 <head>
     <title>Buy ingredients</title>
 </head>
+<jsp:include page="../logo.jsp"/>
 <body>
     <c:if test="${param.message != '' && param.message != null}">
         <script>openForm('${param.message}')</script>

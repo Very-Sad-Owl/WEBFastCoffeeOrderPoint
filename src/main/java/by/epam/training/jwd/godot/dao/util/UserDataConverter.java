@@ -16,11 +16,10 @@ public class UserDataConverter {
             String foundLogin = rs.getString(LOGIN_COL);
             String foundPassword = rs.getString(PASSWORD_COL);
             String foundEmail = rs.getString(EMAIL_COL);
-            String foundHash = rs.getString(HASH_PASSWORD_COL);
             UserRole foundRole = UserRole.valueOf(rs.getString(USER_ROLE).toUpperCase());
             String avatar = rs.getString(USER_IMG);
 
-            return new User(foundLogin, foundPassword, foundEmail, foundHash, foundRole, avatar);
+            return new User(foundLogin, foundPassword, foundEmail, foundRole, avatar);
 
 
     }

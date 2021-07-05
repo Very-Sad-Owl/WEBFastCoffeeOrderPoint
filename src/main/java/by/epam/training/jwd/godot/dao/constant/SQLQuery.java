@@ -34,7 +34,7 @@ public interface SQLQuery {
     String ADD_ORDER_DECORS = "insert into order_decorations(order_positions_id, ingredient_id, amount) values";
     String DECOR_VALUES = "(%d, (select id from ingredients where title = '%s'), %d)";
     String INSERT_INTO_ORDER = "UPDATE order_positions SET order_id = ? WHERE id = ?";
-    String GET_POSITION_DECORATIONS = "select price, amount, ingredients.img_source, season, ingredients.title, type from order_decorations join ingredients on order_decorations.ingredient_id = ingredients.id join seasons on seasons.id = season_id join ingredient_type on ingredient_type.id = type_id where order_positions_id = ?";
+    String GET_POSITION_DECORATIONS = "select price, amount, ingredients.img_source, season, ingredients.title, ingredient_type.type from order_decorations join ingredients on order_decorations.ingredient_id = ingredients.id join seasons on seasons.id = season_id join ingredient_type on ingredient_type.id = type_id where order_positions_id = ?";
     String GET_POSITION_INGREDIENTS = "select ingredients.title, ingredients.price, ingredients.img_source, amount, seasons.season, ingredient_type.type from ingredients join recepits on ingredients.id = recepits.ingredient_id JOIN coffee_types on recepits.coffee_type_id = coffee_types.id JOIN seasons on seasons.id = ingredients.season_id JOIN ingredient_type on ingredients.type_id = ingredient_type.id where coffee_types.title = ?";
     String GET_CURRENT_ORDER = "select amount, order_positions.id, title, img_source, size, increment, price from order_positions join coffee_types on coffee_type_id = coffee_types.id join sizes on sizes.id = size_id where order_id = ?";
     String INSERT_EMPTY_ORDER = "insert into orders(user_id, status_id, estimated_time) values((select id from users where login = ?), (select id from order_statuses where status = ?), ?)";
@@ -84,6 +84,6 @@ public interface SQLQuery {
     String GET_SPOT_INGREDIENTS = "select amount, ingredients.title, price, ingredients.img_source, season, ingredient_type.type from storage join ingredients on storage.ingredient_id = ingredients.id join seasons on seasons.id = ingredients.season_id join ingredient_type on ingredient_type.id = ingredients.type_id where coffeespot_id = ?";
     String GET_SPOT_INGREDIENT = "select amount, ingredients.title, price, ingredients.img_source, quantity, season, ingredient_type.type from storage join ingredients on storage.ingredient_id = ingredients.id join seasons on seasons.id = ingredients.season_id join ingredient_type on ingredient_type.id = ingredients.type_id where ingredients.title = ?";
     String INSERT_INGREDIENT_INTO_STOGARE = "insert into storage(coffeespot_id, ingredient_id, amount) values(?, (select id from ingredients where title = ?), ?)";
-    String UPDATE_AMOUNT = "UPDATE storage SET amount = ? WHERE id = ? and ingredient_id = (select id from ingredients where title = ?)";
+    String UPDATE_AMOUNT = "UPDATE storage SET amount = amount + ? WHERE id = ? and ingredient_id = (select id from ingredients where title = ?)";
 
 }

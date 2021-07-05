@@ -25,7 +25,7 @@ public class CoffeeEditingTest {
     public void updateSpot_incorrectData() throws DAOException {
         String titleToUpdate = "water";
         Ingredient ingredient = null;
-        boolean res = dao.updateIngredient(ingredient, titleToUpdate);
+        dao.updateIngredient(ingredient, titleToUpdate);
 
     }
 }

@@ -68,6 +68,25 @@ public class IngredientDataConverter {
         return ingredient;
     }
 
+    public Ingredient retrieveDecorationFromResultSet(ResultSet rs) throws SQLException {
+        String title = rs.getString(TableRows.TITLE.toString());
+        double price = rs.getDouble(TableRows.PRICE.toString());
+        String img = rs.getString(TableRows.IMG.toString());
+        String ingredientType = rs.getString(TableRows.TYPE.toString());
+        String seasonType = rs.getString(TableRows.SEASON.toString());
+        int amount = rs.getInt(TableRows.AMOUNT.toString());
+
+        Ingredient ingredient = new Ingredient();
+        ingredient.setIngredientType(IngredientType.valueOf(ingredientType.toUpperCase()));
+        ingredient.setImgPath(img);
+        ingredient.setCoast(price);
+        ingredient.setSeasonType(SeasonType.valueOf(seasonType.toUpperCase()));
+        ingredient.setTitle(title);
+        ingredient.setQuantity(amount);
+
+        return ingredient;
+    }
+
     public Ingredient retrieveEmptyFromJoinQueryResultSet(ResultSet rs) throws SQLException {
         int amount = rs.getInt(RecepitsTable.AMOUNT);
         String title = rs.getString(TableRows.TITLE.toString());

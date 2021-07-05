@@ -1,6 +1,4 @@
-package by.epam.training.jwd.godot.controller.util.messages_provider.verification_message_sender;
-
-import by.epam.training.jwd.godot.dao.connection.recource_provider.DBResourceManager;
+package by.epam.training.jwd.godot.service.util.verification_message_sender;
 
 import java.util.ResourceBundle;
 

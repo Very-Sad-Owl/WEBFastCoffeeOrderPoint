@@ -18,4 +18,9 @@ public interface MessagesLocaleNames {
     String RETRIEVING_ERROR = "locale.retrieving.error";
     String UID_INFO = "locale.order.uid.msg";
     String EMAIL_BANNED = "locale.ban.alert";
+    String UNVERIFIED_ACCOUNT = "locale.unverified.alert";
+    String VERIFICATION_SUCCESS = "locale.verification.success";
+    String PASSWORD_MISMATCH = "locale.edit.password.mismatch";
+    String MESSAGE_ERROR = "locale.message.error";
+    String MESSAGE_EMAIL_SENT = "locale.message.sent";
 }

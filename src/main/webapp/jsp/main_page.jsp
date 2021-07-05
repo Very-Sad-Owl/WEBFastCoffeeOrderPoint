@@ -29,8 +29,12 @@
 
 <jsp:include page="order.jsp" />
 
+<%--<c:if test="${param.message != null}">--%>
+	<%--<fmt:message bundle="${loc}" key="${param.message}"/>--%>
+<%--</c:if>--%>
+
 <c:if test="${param.message != null}">
-	<script>alert(${param.message})</script>
+	<script>alert(<fmt:message bundle="${loc}" key="${param.message}"/>)</script>
 </c:if>
 
 <c:if test="${requestScope.chosen != null}">

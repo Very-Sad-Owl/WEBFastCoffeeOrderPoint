@@ -33,30 +33,11 @@ public class RemovingTest {
     private SpotsDao spotsDao = new SpotsDaoImpl();
     private CoffeeDao coffeeDao = new CoffeeDaoImpl();
     private OrderDao orderDao = new OrderDaoImpl();
-    private static long insertedSpotId  = -1;
 
-    @BeforeClass
-    public static void setUp(){
-        PreparedStatement st = null;
-        ResultSet rs = null;
-        ConnectionPool pool = null;
-        Connection con = null;
-        String getInsertedSpotId = "select id from coffeespot where address_id = 3";
-        try {
-            st = con.prepareStatement(getInsertedSpotId);
-            rs = st.executeQuery();
-            if (rs.next()){
-                insertedSpotId = rs.getLong("id");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     @Test
     public void deleteSpot_correctData() throws DAOException {
-        boolean res = spotsDao.deleteSpot(insertedSpotId);
+        boolean res = spotsDao.deleteSpot(19);
         assertTrue(res);
     }
 

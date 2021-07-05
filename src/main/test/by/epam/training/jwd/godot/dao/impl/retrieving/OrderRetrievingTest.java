@@ -1,4 +1,4 @@
-package by.epam.training.jwd.godot.dao.impl.retrieving.order;
+package by.epam.training.jwd.godot.dao.impl.retrieving;
 
 import by.epam.training.jwd.godot.bean.coffee.*;
 import by.epam.training.jwd.godot.dao.CoffeeDao;

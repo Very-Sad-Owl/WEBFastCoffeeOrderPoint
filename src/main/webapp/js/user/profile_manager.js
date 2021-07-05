@@ -86,7 +86,7 @@ function onUpdateUser(f) {
 
     $.ajax({
         type : "POST",
-        url : "Controller?command=editprofile&action=update",
+        url : "Controller?command=editprofile&action=send_msg",
         data: $("#edit_user").serialize(),
         success : function(response) {
             alert(response);

@@ -168,7 +168,7 @@ public class OrderDaoImpl implements OrderDao {
                 ps.setLong(1, id);
                 srs = ps.executeQuery();
                 while (srs.next()){
-                    Ingredient ingredient = new IngredientDataConverter().retrieveFromResultSet(srs);
+                    Ingredient ingredient = new IngredientDataConverter().retrieveDecorationFromResultSet(srs);
                     coffee.addDecoration(ingredient);
                 }
                 all.add(new OrderPotition(id, coffee, amount, price));

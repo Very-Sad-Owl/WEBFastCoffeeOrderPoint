@@ -29,11 +29,20 @@ public class IngredientsManager implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        MessageProvider msgProvider = new MessageProvider(new Locale((String) request.getSession().getAttribute(LOCALE)));
+        MessageProvider msgProvider = new MessageProvider(request.getSession().getAttribute(LOCALE) != null ?
+                new Locale((String) request.getSession().getAttribute(LOCALE)) : Locale.ENGLISH);
 
         String action = request.getParameter(ACTION);
         ServiceProvider provider = ServiceProvider.getInstance();
         CoffeeService service = provider.getCoffeeService();
+
+//        String title = request.getParameter(INGREDIENT_TITLE);
+//        String iType = request.getParameter(INGREDIENT_TYPE);
+//        String sType = request.getParameter(INGREDIENT_SEASON);
+//        double price = Double.parseDouble(request.getParameter(INGREDIENT_PRICE));
+//        int quantity = Integer.parseInt(request.getParameter(INGREDIENT_QUANTITY));
+//        String img = request.getParameter(INGREDIENT_IMG);
+//        String origTitle = request.getParameter(INGREDIENT_PREVIOUS_TITLE);
 
         switch (action) {
             case DELETE_ACTION:
@@ -89,7 +98,7 @@ public class IngredientsManager implements Command {
                 break;
             }
             case CHANGE_IMAGE:
-                String folderPath = resourceManager.getValue(USER_IMG_FULL_PATH);
+                String folderPath = resourceManager.getValue(INGREDIENT_IMG_FULL_PATH);
                 String fileName = "";
                 StringBuilder fullPath = new StringBuilder();
                 fullPath.append(folderPath);
@@ -100,7 +109,7 @@ public class IngredientsManager implements Command {
                     part.write(fullPath.toString());
                 }
 
-                response.getWriter().print(USER_IMG_REL_PATH + fileName);
+                response.getWriter().print(resourceManager.getValue(INGREDIENT_IMG_REL_PATH) + fileName);
                 break;
         }
         response.getWriter().flush();

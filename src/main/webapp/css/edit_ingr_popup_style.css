@@ -1,7 +1,7 @@
 /* The popup form - hidden by default */
 .edit_ingredient_popup {
   display: none;
-  position: fixed;
+  position: center;
   top: 50%;
   left: 50%;
   width: 600px;

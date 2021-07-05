@@ -26,7 +26,6 @@
             <td>${n.login}</td>
             <td id = "${n.login}${"password"}">${n.password}</td>
             <td id = "${n.login}${"email"}">${n.email}</td>
-            <td id = "${n.login}${"balance"}">${n.balance}</td>
             <td id = "${n.login}${"role"}">${n.role}</td>
             <%--<td>--%>
                 <%--<img src="${'../'}${n.imgPath}" alt="${n.title}"/>--%>

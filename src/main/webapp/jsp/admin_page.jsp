@@ -21,6 +21,7 @@
 </head>
 <body>
 
+<jsp:include page="logo.jsp"/>
 <div class="menu">
     <div class="option" id = "manage_orders">
         <a href="Controller?command=gotomanageorders">

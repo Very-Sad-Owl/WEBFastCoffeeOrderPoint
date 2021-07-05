@@ -34,8 +34,8 @@ public class GoToOrdersArchivePage implements Command {
 
         ServiceProvider provider = ServiceProvider.getInstance();
         OrderService service = provider.getOrderService();
-        int sortParam = request.getParameter("sorting_option") != null ?
-                Integer.parseInt(request.getParameter("sorting_option")) : 0;
+        int sortParam = request.getParameter(SORTING_OPTION) != null ?
+                Integer.parseInt(request.getParameter(SORTING_OPTION)) : 0;
         LOGGER.info(sortParam);
 
         try {
@@ -53,7 +53,7 @@ public class GoToOrdersArchivePage implements Command {
             }
             LOGGER.info(orders);
             request.setAttribute(ORDER_LIST, orders);
-            request.setAttribute("sorting_options", Arrays.asList(SortingOption.values()));
+            request.setAttribute(SORTING_OPTION, Arrays.asList(SortingOption.values()));
         } catch (ServiceException e) {
             LOGGER.error(e.getMessage());
         }

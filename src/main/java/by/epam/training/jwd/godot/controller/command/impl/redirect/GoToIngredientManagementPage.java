@@ -34,8 +34,8 @@ public class GoToIngredientManagementPage implements Command {
             List<String> columns = service.getIngredientColumns();
             request.setAttribute(INGREDIENT_LIST, ingredients);
             request.setAttribute(INGREDIENT_COLUMNS, columns);
-            request.setAttribute("ingredient_types", IngredientType.values());
-            request.setAttribute("season_types", SeasonType.values());
+            request.setAttribute(INGREDIENT_TYPES, IngredientType.values());
+            request.setAttribute(INGREDIENT_SEASON_TYPES, SeasonType.values());
         } catch (ServiceException e) {
             LOGGER.error(e);
         }

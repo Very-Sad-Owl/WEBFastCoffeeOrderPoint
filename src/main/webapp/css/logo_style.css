@@ -1,10 +1,23 @@
 .site-branding {
     margin-bottom:1em;
-    text-align:center;
-    display: inline-block;
-    float: right;
+    display: inline;
+}
+
+.site-title {
+    margin-bottom:1em;
+    display: inline;
 }
 
 .site-title a {
-    text-decoration:none;
+    text-decoration: none;
+    font: 15px Monaco,Consolas,"Andale Mono","DejaVu Sans Mono",monospace;
+    white-space: normal;
+    color: #666;
+}
+
+.site-title img {
+    width: 100px;
+    height: 100px;
+    left: 50%;
+    position: relative;
 }

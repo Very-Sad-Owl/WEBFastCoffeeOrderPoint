@@ -1,4 +1,4 @@
-package by.epam.training.jwd.godot.dao.impl.retrieving.point;
+package by.epam.training.jwd.godot.dao.impl.retrieving;
 
 import by.epam.training.jwd.godot.bean.coffee.Ingredient;
 import by.epam.training.jwd.godot.bean.delivery_point.Address;

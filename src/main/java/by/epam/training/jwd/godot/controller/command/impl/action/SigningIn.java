@@ -13,6 +13,7 @@ import by.epam.training.jwd.godot.bean.user.User;
 import by.epam.training.jwd.godot.bean.user.UserRole;
 import by.epam.training.jwd.godot.controller.command.Command;
 import by.epam.training.jwd.godot.controller.util.messages_provider.MessageProvider;
+import by.epam.training.jwd.godot.controller.util.messages_provider.MessagesLocaleNames;
 import by.epam.training.jwd.godot.service.exception.ServiceException;
 import by.epam.training.jwd.godot.service.ServiceProvider;
 import by.epam.training.jwd.godot.service.UserService;
@@ -22,8 +23,6 @@ import static by.epam.training.jwd.godot.controller.command.resource.RequestPara
 import static by.epam.training.jwd.godot.controller.command.resource.SessionAttr.*;
 
 public class SigningIn implements Command {
-
-	private static final String NONEXISTING_USER_MSG = "locale.nonexisting_password_msg";
 
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -35,9 +34,10 @@ public class SigningIn implements Command {
 
 		ServiceProvider provider = ServiceProvider.getInstance();
 		UserService userService = provider.getUserService();
-		MessageProvider msgProvider = new MessageProvider(new Locale((String) request.getSession().getAttribute(LOCALE)));
+		MessageProvider msgProvider = new MessageProvider(
+				request.getSession().getAttribute(LOCALE) != null ?
+				new Locale((String)request.getSession().getAttribute(LOCALE)) : Locale.ENGLISH);
 
-		//TODO: is_activated => Role.UNVERIFIED
 		User user = null;
 		try {
 			user = userService.authorization(new SignInInfo(login, password));
@@ -56,11 +56,11 @@ public class SigningIn implements Command {
 			else if (user.getRole() == UserRole.BANNED) {
 				HttpSession session = request.getSession(true);
 				session.setAttribute(AUTHORIZATION, false);
-				response.sendRedirect(String.format(GOTOLOGINPAGE_WITH_MSG, "You have been banned"));
+				response.sendRedirect(String.format(GOTOLOGINPAGE_WITH_MSG, MessagesLocaleNames.EMAIL_BANNED));
 			} else if (user.getRole() == UserRole.UNVERIFIED){
 				HttpSession session = request.getSession(true);
 				session.setAttribute(AUTHORIZATION, false);
-				response.sendRedirect(String.format(GOTOLOGINPAGE_WITH_MSG, "Please, verify your account first"));
+				response.sendRedirect(String.format(GOTOLOGINPAGE_WITH_MSG, MessagesLocaleNames.UNVERIFIED_ACCOUNT));
 			}
 		} catch (ServiceException e) {
 			String errorMsg = msgProvider.getMessage(e.getClass().getSimpleName());

@@ -10,15 +10,13 @@ public class RegistrationInfo implements Serializable {
 	private String login;
 	private String password;
 	private String email;
-	private String hashedPassword;
 
 	public RegistrationInfo(){}
 
-	public RegistrationInfo(String login, String password, String email, String hashedPassword) {
+	public RegistrationInfo(String login, String password, String email) {
 		this.login = login;
 		this.password = password;
 		this.email = email;
-		this.hashedPassword  = hashedPassword;
 	}
 
 	public String getLogin() {
@@ -45,13 +43,6 @@ public class RegistrationInfo implements Serializable {
 		this.email = email;
 	}
 
-	public String getHashedPassword() {
-		return hashedPassword;
-	}
-
-	public void setHashedPassword(String hashedPassword) {
-		this.hashedPassword = hashedPassword;
-	}
 
 	@Override
 	public boolean equals(Object o) {
@@ -60,13 +51,12 @@ public class RegistrationInfo implements Serializable {
 		RegistrationInfo info = (RegistrationInfo) o;
 		return Objects.equals(getLogin(), info.getLogin()) &&
 				Objects.equals(getPassword(), info.getPassword()) &&
-				Objects.equals(getEmail(), info.getEmail()) &&
-				Objects.equals(getHashedPassword(), info.getHashedPassword());
+				Objects.equals(getEmail(), info.getEmail());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getLogin(), getPassword(), getEmail(), getHashedPassword());
+		return Objects.hash(getLogin(), getPassword(), getEmail());
 	}
 
 	@Override
@@ -75,7 +65,6 @@ public class RegistrationInfo implements Serializable {
 				"login='" + login + '\'' +
 				", password='" + password + '\'' +
 				", email='" + email + '\'' +
-				", hashedPassword='" + hashedPassword + '\'' +
 				'}';
 	}
 }

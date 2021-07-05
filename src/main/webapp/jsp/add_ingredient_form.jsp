@@ -4,9 +4,9 @@
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
-<link href="../css/add_ingr_popup_style.css" rel="stylesheet" type="text/css">
+<%--<link href="../css/add_ingr_popup_style.css" rel="stylesheet" type="text/css">--%>
 <link rel='stylesheet' href='../css/ingredient_form_style.css' type='text/css' media='all'/>
-<%--<script type="text/javascript" src="../js/ingredient_management.js"></script>--%>'
+<script type="text/javascript" src="../js/ingredient_management.js"></script>
 <script src="http://code.jquery.com/jquery-2.2.4.js"
         type="text/javascript"></script>
 <script type="text/javascript" src="../js/scripts.js"></script>
@@ -15,7 +15,7 @@
 <fmt:setBundle basename="locale" var="loc"/>
 
 <div class="add_ingredient_popup" id = "add_ingredient_popup">
-  <h1>Edit</h1>
+  <h1> <fmt:message bundle="${loc}" key="locale.add.btn"/></h1>
     <form class="add_ingredient" id="add_ingredient" onsubmit="return onAddIngredient(this)">
 
         <label for="ingr_title">Title</label>

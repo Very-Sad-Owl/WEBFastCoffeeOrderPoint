@@ -1,5 +1,6 @@
 .lang_options{
-    position:absolute;
+    display: inline-block;
+    position:fixed;
     top:0;
     right:0;
     margin: 30px;

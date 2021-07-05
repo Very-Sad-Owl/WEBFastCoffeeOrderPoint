@@ -1,7 +1,7 @@
 package by.epam.training.jwd.godot.dao.impl;
 
-import by.epam.training.jwd.godot.bean.user.SignInInfo;
 import by.epam.training.jwd.godot.bean.user.RegistrationInfo;
+import by.epam.training.jwd.godot.bean.user.SignInInfo;
 import by.epam.training.jwd.godot.bean.user.User;
 import by.epam.training.jwd.godot.dao.exception.DAOException;
 import org.junit.Test;
@@ -18,12 +18,14 @@ public class UserDaoImplTest {
         assertNotNull(user);
     }
 
-//    @Test
-//    public void insertUserTest() throws DAOException {
-//        boolean res = dao.registration(new RegistrationInfo("oleg", "720290", "oleg.gmail.com"));
-//
-//        assertNotEquals(0, res);
-//    }
+    @Test
+    public void insertUserTest() throws DAOException {
+        String expected = "aaa";
+
+        String actual = dao.registration(new RegistrationInfo("oleg", "720290", "oleg.gmail.com"));
+
+        assertEquals(expected, actual);
+    }
 
     @Test
     public void banUserTest() throws DAOException {
@@ -34,7 +36,7 @@ public class UserDaoImplTest {
 
     @Test
     public void changeUserContactsTest() throws DAOException {
-        boolean res = dao.changeUserContacts("owl", "newowl", "owl@gmail.com");
+        boolean res = dao.changeUserPassword("owl", "newowl");
 
         assertNotEquals(0, res);
     }

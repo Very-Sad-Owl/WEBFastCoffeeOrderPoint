@@ -18,7 +18,7 @@ public class Verification implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        //TODO: гений мысли отец русского говнонейминга
         String email = request.getParameter("key1");
         String hash = request.getParameter("key2");
 
